@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sudeNEXUS — Coming Soon</title>
+  <meta name="description" content="sudeNEXUS Learning Platform — Skills that travel. Impact that stays." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #ffffff;
+      color: #243654;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* LANG SWITCHER */
+    .lang-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 0.75rem 3rem;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 0.5px solid rgba(36,54,84,0.1);
+      z-index: 100;
+      gap: 0.25rem;
+    }
+
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888780;
+      padding: 0.3rem 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .lang-btn.active { color: #243654; }
+    .lang-btn:hover { color: #243654; }
+    .lang-divider { color: #d3d1c7; font-size: 0.7rem; }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+    }
+
+    /* LOGO */
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 0;
+      margin-bottom: 3.5rem;
+      text-decoration: none;
+    }
+
+    .logo-sude {
+      font-size: 2.2rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: #5c1a2e;
+    }
+
+    .logo-nexus {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      color: #243654;
+    }
+
+    /* COMING SOON */
+    .coming-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #5c1a2e;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .main-heading {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #243654;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+      max-width: 600px;
+    }
+
+    .main-heading span {
+      color: #1d9e75;
+      font-weight: 700;
+    }
+
+    .motto {
+      font-family: 'Raleway', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: #888780;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      max-width: 480px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: #1d9e75;
+      margin: 0 auto 3rem;
+    }
+
+    .description {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: #888780;
+      line-height: 1.9;
+      max-width: 520px;
+      margin-bottom: 3rem;
+    }
+
+    .cta-link {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: white;
+      background: #243654;
+      padding: 0.85rem 2.25rem;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .cta-link:hover { background: #1d9e75; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 0.5px solid rgba(36,54,84,0.1);
+    }
+
+    footer a {
+      font-size: 0.78rem;
+      color: #888780;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+    }
+
+    footer a:hover { color: #1d9e75; }
+
+    /* HIDDEN */
+    [data-lang] { display: none; }
+    [data-lang].visible { display: block; }
+    .inline-lang { display: none; }
+    .inline-lang.visible { display: inline; }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      .lang-bar { padding: 0.75rem 1.5rem; }
+      .main-heading { font-size: 2.2rem; }
+      .logo-sude, .logo-nexus { font-size: 1.8rem; }
+      main { padding: 7rem 1.5rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LANG BAR -->
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+    <span class="lang-divider">|</span>
+    <button class="lang-btn" onclick="setLang('nl')" id="btn-nl">NL</button>
+  </div>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- LOGO -->
+    <div style="margin-bottom: 3.5rem; text-align: center;">
+      <div class="logo" style="margin-bottom: 0.4rem;">
+        <span class="logo-sude">sude</span><span class="logo-nexus">NEXUS</span>
+      </div>
+      <p style="font-family: 'Raleway', sans-serif; font-size: 0.78rem; font-weight: 400; letter-spacing: 0.12em; color: #5c1a2e;">Connecting ideas. Creating impact.</p>
+    </div>
+
+    <!-- EN CONTENT -->
+    <p class="coming-label">
+      <span data-lang="en" class="visible">Coming Soon</span>
+      <span data-lang="nl">Binnenkort beschikbaar</span>
+    </p>
+
+    <h1 class="main-heading">
+      <span data-lang="en" class="visible">Skills that <span style="color:#1d9e75">travel.</span><br/>Impact that stays.</span>
+      <span data-lang="nl">Vaardigheden die <span style="color:#1d9e75">reizen.</span><br/>Impact die blijft.</span>
+    </h1>
+
+    <div class="divider"></div>
+
+    <p class="description">
+      <span data-lang="en" class="visible">
+        sudeNEXUS is building a dedicated learning platform for professionals, teams, and organisations — combining accredited training, international mobility programmes, and practical skills for the modern era.
+      </span>
+      <span data-lang="nl">
+        sudeNEXUS bouwt een dedicated leerplatform voor professionals, teams en organisaties — met geaccrediteerde trainingen, internationale mobiliteitsprogramma's en praktische vaardigheden voor de moderne tijd.
+      </span>
+    </p>
+
+    <a href="https://www.sudenexus.com/#contact" class="cta-link">
+      <span data-lang="en" class="visible">Get in Touch</span>
+      <span data-lang="nl">Neem contact op</span>
+    </a>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="https://www.sudenexus.com" target="_blank" rel="noopener noreferrer">
+      <span data-lang="en" class="visible">Visit sudenexus.com →</span>
+      <span data-lang="nl">Bezoek sudenexus.com →</span>
+    </a>
+  </footer>
+
+  <script>
+    function setLang(lang) {
+      // Update buttons
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-nl').classList.toggle('active', lang === 'nl');
+
+      // Update content blocks
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.classList.toggle('visible', el.getAttribute('data-lang') === lang);
+      });
+
+      // Save preference
+      localStorage.setItem('lang', lang);
+    }
+
+    // On load — check saved preference or browser language
+    (function() {
+      const saved = localStorage.getItem('lang');
+      const browser = navigator.language?.startsWith('nl') ? 'nl' : 'en';
+      setLang(saved || browser);
+    })();
+  </script>
+
+</body>
+</html>
