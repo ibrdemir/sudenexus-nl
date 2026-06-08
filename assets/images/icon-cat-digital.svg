@@ -1,0 +1,36 @@
+<!-- Category Icon 1: Digital Transformation and AI -->
+<!-- Colour: #1E6FA8 | Motif: Circuit node network / neural net -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none" aria-hidden="true" data-icon-animate="digital">
+  <!-- Central node -->
+  <circle cx="32" cy="32" r="6" fill="#1E6FA8"/>
+  <!-- Outer nodes -->
+  <circle cx="12" cy="20" r="4" fill="#1E6FA8" opacity="0.7"/>
+  <circle cx="52" cy="20" r="4" fill="#1E6FA8" opacity="0.7"/>
+  <circle cx="12" cy="44" r="4" fill="#1E6FA8" opacity="0.7"/>
+  <circle cx="52" cy="44" r="4" fill="#1E6FA8" opacity="0.7"/>
+  <circle cx="32" cy="10" r="3" fill="#1E6FA8" opacity="0.5"/>
+  <circle cx="32" cy="54" r="3" fill="#1E6FA8" opacity="0.5"/>
+  <!-- Connecting lines -->
+  <line x1="32" y1="32" x2="12" y2="20" stroke="#1E6FA8" stroke-width="1.5" opacity="0.5" stroke-dasharray="20" stroke-dashoffset="20" class="icon-line"/>
+  <line x1="32" y1="32" x2="52" y2="20" stroke="#1E6FA8" stroke-width="1.5" opacity="0.5" stroke-dasharray="20" stroke-dashoffset="20" class="icon-line"/>
+  <line x1="32" y1="32" x2="12" y2="44" stroke="#1E6FA8" stroke-width="1.5" opacity="0.5" stroke-dasharray="20" stroke-dashoffset="20" class="icon-line"/>
+  <line x1="32" y1="32" x2="52" y2="44" stroke="#1E6FA8" stroke-width="1.5" opacity="0.5" stroke-dasharray="20" stroke-dashoffset="20" class="icon-line"/>
+  <line x1="32" y1="32" x2="32" y2="10" stroke="#1E6FA8" stroke-width="1.5" opacity="0.3" stroke-dasharray="22" stroke-dashoffset="22" class="icon-line"/>
+  <line x1="32" y1="32" x2="32" y2="54" stroke="#1E6FA8" stroke-width="1.5" opacity="0.3" stroke-dasharray="22" stroke-dashoffset="22" class="icon-line"/>
+  <style>
+    @media (prefers-reduced-motion: no-preference) {
+      [data-icon-animate="digital"].animate .icon-line {
+        animation: icon-dash-digital 0.6s ease forwards;
+      }
+      [data-icon-animate="digital"].animate .icon-line:nth-child(9)  { animation-delay: 0.0s; }
+      [data-icon-animate="digital"].animate .icon-line:nth-child(10) { animation-delay: 0.1s; }
+      [data-icon-animate="digital"].animate .icon-line:nth-child(11) { animation-delay: 0.2s; }
+      [data-icon-animate="digital"].animate .icon-line:nth-child(12) { animation-delay: 0.3s; }
+      [data-icon-animate="digital"].animate .icon-line:nth-child(13) { animation-delay: 0.15s; }
+      [data-icon-animate="digital"].animate .icon-line:nth-child(14) { animation-delay: 0.25s; }
+      @keyframes icon-dash-digital {
+        to { stroke-dashoffset: 0; }
+      }
+    }
+  </style>
+</svg>
