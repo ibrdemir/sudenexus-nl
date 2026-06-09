@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Catalogue | sudeNEXUS Learning</title>
+  <meta name="description" content="52 professionally designed Erasmus+ courses across school education, VET and adult learning. 13 destinations, all four Erasmus+ 2026 priorities.">
+  <link rel="canonical" href="https://sudenexus.nl/courses">
+  <link rel="stylesheet" href="/sudenexus-nl/assets/css/main.css">
+  <link rel="icon" type="image/svg+xml" href="/sudenexus-nl/assets/images/1sudex-logo.svg">
+  <style>
+    /* Filter bar */
+    .filter-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--color-light-grey);
+      padding: 1rem 0;
+      position: sticky;
+      top: var(--nav-height);
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(30,58,95,0.06);
+    }
+    .filter-bar-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--space-xl);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .filter-select {
+      padding: 8px 12px;
+      border: 1.5px solid var(--color-light-grey);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-family: var(--font-body);
+      color: var(--color-charcoal);
+      background: #fff;
+      cursor: pointer;
+      transition: border-color 150ms ease;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231E3A5F' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 28px;
+    }
+    .filter-select:focus { outline: none; border-color: var(--color-navy); }
+    .filter-search {
+      flex: 1;
+      min-width: 180px;
+      padding: 8px 12px 8px 36px;
+      border: 1.5px solid var(--color-light-grey);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-family: var(--font-body);
+      background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") no-repeat 10px center;
+    }
+    .filter-search:focus { outline: none; border-color: var(--color-navy); }
+    .filter-clear { font-size: 0.8rem; color: var(--color-burgundy); font-weight: 600; cursor: pointer; white-space: nowrap; background: none; border: none; }
+    .results-count { font-size: 0.8rem; color: #6b7280; white-space: nowrap; margin-left: auto; }
+
+    /* Sector tabs */
+    .sector-tabs { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .sector-tab {
+      padding: 10px 20px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--color-light-grey);
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #6b7280;
+      transition: all 150ms ease;
+      text-align: center;
+    }
+    .sector-tab:hover { border-color: var(--color-navy); color: var(--color-navy); }
+    .sector-tab.active { border-color: var(--color-navy); background: var(--color-navy); color: #fff; }
+    .sector-tab .sub-label { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.75; margin-top: 2px; }
+
+    /* Course grid */
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 1024px) { .course-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { .course-grid { grid-template-columns: 1fr; } }
+
+    .course-card-item {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-light-grey);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    }
+    .course-card-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: transparent; }
+    .course-card-item.hidden { display: none; }
+
+    .course-card-top { height: 4px; }
+    .course-card-inner { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+    .course-card-meta { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .course-cat-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #6b7280; }
+    .sector-badge { padding: 2px 8px; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 700; color: #fff; }
+    .sector-badge.school { background: var(--color-navy); }
+    .sector-badge.vet    { background: var(--cat-vet); }
+    .sector-badge.adu    { background: var(--cat-adu); }
+
+    .course-card-title { font-size: 0.9375rem; font-weight: 700; color: var(--color-navy); margin-bottom: 0.4rem; line-height: 1.35; }
+    .course-card-tagline { font-size: 0.8125rem; color: #6b7280; line-height: 1.55; flex: 1; margin-bottom: 0.75rem; }
+
+    .priority-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.75rem; }
+    .priority-tag { padding: 2px 8px; border-radius: var(--radius-full); font-size: 0.7rem; font-weight: 500; border: 1px solid; }
+    .priority-tag.digital        { color: var(--cat-digital); border-color: rgba(30,111,168,0.25); background: rgba(30,111,168,0.06); }
+    .priority-tag.inclusion      { color: var(--color-burgundy); border-color: rgba(139,26,46,0.25); background: rgba(139,26,46,0.06); }
+    .priority-tag.environment    { color: var(--cat-sustainability); border-color: rgba(46,125,79,0.25); background: rgba(46,125,79,0.06); }
+    .priority-tag.democratic     { color: var(--cat-language); border-color: rgba(91,74,138,0.25); background: rgba(91,74,138,0.06); }
+    .priority-tag.all-priorities { color: var(--color-charcoal); border-color: var(--color-light-grey); background: var(--color-off-white); }
+
+    .course-card-footer { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.25rem; border-top: 1px solid var(--color-light-grey); font-size: 0.8rem; color: #6b7280; }
+    .course-card-footer a { font-size: 0.8125rem; font-weight: 600; color: var(--color-burgundy); display: flex; align-items: center; gap: 4px; }
+
+    /* No results */
+    .no-results { display: none; text-align: center; padding: 4rem 1rem; }
+    .no-results.visible { display: block; }
+    .no-results h3 { color: var(--color-navy); margin-bottom: 0.75rem; }
+    .no-results p { color: #6b7280; max-width: 480px; margin: 0 auto 1.5rem; }
+
+    /* Learner mobility block */
+    .learner-mobility { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 640px) { .learner-mobility { grid-template-columns: 1fr; } }
+
+    /* Mobile filter overlay */
+    @media (max-width: 768px) {
+      .filter-bar-inner { gap: 0.5rem; }
+      .filter-select { font-size: 0.8rem; }
+      .filter-search { min-width: 120px; }
+    }
+  </style>
+</head>
+<body class="page-body">
+
+  <!-- NAVIGATION -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/sudenexus-nl/" class="nav-logo" aria-label="sudeNEXUS Learning home">
+        <img src="/sudenexus-nl/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="140" height="36">
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/sudenexus-nl/about">About Us</a></li>
+        <li class="nav-dropdown">
+          <a href="/sudenexus-nl/courses" class="active">Courses</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="/sudenexus-nl/courses">Course Catalogue</a></li>
+            <li><a href="/sudenexus-nl/find-your-course">Find Your Course</a></li>
+            <li><a href="/sudenexus-nl/dates">Course Dates</a></li>
+            <div class="dropdown-divider"></div>
+            <li><a href="/sudenexus-nl/courses/digital-transformation-and-ai">Digital Transformation and AI</a></li>
+            <li><a href="/sudenexus-nl/courses/innovative-teaching-methods">Innovative Teaching Methods</a></li>
+            <li><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety">Inclusion, Wellbeing and School Safety</a></li>
+            <li><a href="/sudenexus-nl/courses/language-and-communication">Language and Communication</a></li>
+            <li><a href="/sudenexus-nl/courses/sustainability-and-global-citizenship">Sustainability and Global Citizenship</a></li>
+            <li><a href="/sudenexus-nl/courses/school-leadership-and-development">School Leadership and Development</a></li>
+            <li><a href="/sudenexus-nl/courses/pedagogy-and-early-childhood">Pedagogy and Early Childhood</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <a href="/sudenexus-nl/locations">Locations</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="/sudenexus-nl/locations">All Destinations</a></li>
+            <div class="dropdown-divider"></div>
+            <li><a href="/sudenexus-nl/locations/amsterdam">Amsterdam</a></li>
+            <li><a href="/sudenexus-nl/locations/rotterdam">Rotterdam</a></li>
+            <li><a href="/sudenexus-nl/locations/bruges">Bruges</a></li>
+            <li><a href="/sudenexus-nl/locations/hamburg">Hamburg</a></li>
+            <li><a href="/sudenexus-nl/locations/berlin">Berlin</a></li>
+            <li><a href="/sudenexus-nl/locations/vienna">Vienna</a></li>
+            <li><a href="/sudenexus-nl/locations/barcelona">Barcelona</a></li>
+            <li><a href="/sudenexus-nl/locations/athens">Athens</a></li>
+            <li><a href="/sudenexus-nl/locations/thessaloniki">Thessaloniki</a></li>
+            <li><a href="/sudenexus-nl/locations/naples">Naples</a></li>
+            <li><a href="/sudenexus-nl/locations/cappadocia">Cappadocia</a></li>
+            <li><a href="/sudenexus-nl/locations/istanbul">Istanbul</a></li>
+            <li><a href="/sudenexus-nl/locations/antalya">Antalya</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <a href="/sudenexus-nl/vet-mobility">VET and ADU</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li>
+            <li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li>
+          </ul>
+        </li>
+        <li><a href="/sudenexus-nl/services">Services</a></li>
+        <li><a href="/sudenexus-nl/design-your-mobility">Design Your Mobility</a></li>
+      </ul>
+      <a href="/sudenexus-nl/contact" class="nav-cta">Get in Touch</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="nav-mobile" aria-label="Mobile navigation">
+    <ul class="nav-mobile-links" role="list">
+      <li><a href="/sudenexus-nl/about">About Us</a></li>
+      <li><a href="/sudenexus-nl/courses">Courses</a></li>
+      <li><a href="/sudenexus-nl/locations">Locations</a></li>
+      <li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li>
+      <li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li>
+      <li><a href="/sudenexus-nl/services">Services</a></li>
+      <li><a href="/sudenexus-nl/design-your-mobility">Design Your Mobility</a></li>
+      <li><a href="/sudenexus-nl/contact">Contact Us</a></li>
+    </ul>
+  </div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container page-hero-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/sudenexus-nl/">Home</a><span aria-hidden="true">›</span>
+          <span class="current">Course Catalogue</span>
+        </nav>
+        <h1>Course Catalogue</h1>
+        <p>52 professionally designed courses across three sectors, 13 destinations and all four Erasmus+ 2026 priorities. Everything your institution needs in one place.</p>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="section-sm bg-off-white" aria-labelledby="catalogue-intro-heading">
+      <div class="container">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;">
+          <div>
+            <h2 id="catalogue-intro-heading" style="font-size:1.25rem;margin-bottom:0.75rem;">Find the Right Course for Your Institution</h2>
+            <p style="color:#4a5568;margin:0;">The Sude Nexus course catalogue brings together 52 Erasmus+ eligible professional development programmes across school education, vocational education and training, and adult learning. Every course is one week in duration, delivered in English, and available across our network of 13 European and Mediterranean destinations. Use the filters below to search by sector, topic, Erasmus+ priority, destination or course level. Or browse the full catalogue by category. If you cannot find exactly what you are looking for, our Design Your Mobility service lets us build something together from scratch.</p>
+          </div>
+          <a href="/sudenexus-nl/find-your-course" class="btn btn-outline-navy" style="white-space:nowrap;flex-shrink:0;">Find Your Course</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar" role="search" aria-label="Course filters">
+      <div class="filter-bar-inner">
+        <select class="filter-select" id="filter-sector" aria-label="Filter by sector">
+          <option value="">All Sectors</option>
+          <option value="school">School Education</option>
+          <option value="vet">VET</option>
+          <option value="adu">ADU</option>
+        </select>
+        <select class="filter-select" id="filter-category" aria-label="Filter by category">
+          <option value="">All Categories</option>
+          <option value="digital">Digital Transformation and AI</option>
+          <option value="teaching">Innovative Teaching Methods</option>
+          <option value="inclusion">Inclusion, Wellbeing and School Safety</option>
+          <option value="language">Language and Communication</option>
+          <option value="sustainability">Sustainability and Global Citizenship</option>
+          <option value="leadership">School Leadership and Development</option>
+          <option value="pedagogy">Pedagogy and Early Childhood</option>
+          <option value="vet">VET Staff Training</option>
+          <option value="adu">ADU Staff Training</option>
+        </select>
+        <select class="filter-select" id="filter-priority" aria-label="Filter by Erasmus+ priority">
+          <option value="">All Priorities</option>
+          <option value="digital">Digital Transformation</option>
+          <option value="inclusion">Inclusion and Diversity</option>
+          <option value="environment">Environment and Climate</option>
+          <option value="democratic">Participation in Democratic Life</option>
+        </select>
+        <input class="filter-search" type="search" id="filter-search" placeholder="Search by course name or keyword" aria-label="Search courses">
+        <button class="filter-clear" id="filter-clear" type="button">Clear all</button>
+        <span class="results-count" id="results-count" aria-live="polite">Showing 50 of 50 courses</span>
+      </div>
+    </div>
+
+    <!-- SECTOR TABS -->
+    <div class="section-sm bg-off-white">
+      <div class="container">
+        <div class="sector-tabs" role="tablist" aria-label="Filter by sector">
+          <button class="sector-tab active" data-tab="all" role="tab" aria-selected="true">
+            All Sectors
+            <span class="sub-label">50 courses</span>
+          </button>
+          <button class="sector-tab" data-tab="school" role="tab" aria-selected="false">
+            School Education
+            <span class="sub-label">32 courses across 7 categories</span>
+          </button>
+          <button class="sector-tab" data-tab="vet" role="tab" aria-selected="false">
+            Vocational Education and Training
+            <span class="sub-label">8 staff training courses</span>
+          </button>
+          <button class="sector-tab" data-tab="adu" role="tab" aria-selected="false">
+            Adult Education
+            <span class="sub-label">8 staff training courses</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COURSE GRID -->
+    <section class="section bg-white" aria-label="Course catalogue">
+      <div class="container">
+        <div class="course-grid" id="course-grid">
+
+          <!-- SCHOOL: DIGITAL TRANSFORMATION AND AI -->
+          <div class="course-card-item" data-sector="school" data-category="digital" data-priority="digital" data-title="Artificial Intelligence for Education">
+            <div class="course-card-top" style="background:var(--cat-digital);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta">
+                <span class="course-cat-label">Digital Transformation and AI</span>
+                <span class="sector-badge school">School</span>
+              </div>
+              <div class="course-card-title">Artificial Intelligence for Education</div>
+              <div class="course-card-tagline">Understand AI. Use it wisely. Transform your teaching.</div>
+              <div class="priority-tags">
+                <span class="priority-tag digital">Digital Transformation</span>
+              </div>
+            </div>
+            <div class="course-card-footer">
+              <span>13 destinations &middot; 1 week</span>
+              <a href="/sudenexus-nl/courses/digital-transformation-and-ai/artificial-intelligence-for-education">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            </div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="digital" data-priority="digital" data-title="ICT Tools in the Classroom">
+            <div class="course-card-top" style="background:var(--cat-digital);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Digital Transformation and AI</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">ICT Tools in the Classroom</div>
+              <div class="course-card-tagline">The right tools, used the right way, make all the difference.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/digital-transformation-and-ai/ict-tools-in-the-classroom">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="digital" data-priority="digital" data-title="Web 2.0 Tools for Teachers">
+            <div class="course-card-top" style="background:var(--cat-digital);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Digital Transformation and AI</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Web 2.0 Tools for Teachers</div>
+              <div class="course-card-tagline">Connect, collaborate and create with the open web.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/digital-transformation-and-ai/web-2-0-tools-for-teachers">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="digital" data-priority="digital" data-title="Robotics and Coding in Schools">
+            <div class="course-card-top" style="background:var(--cat-digital);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Digital Transformation and AI</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Robotics and Coding in Schools</div>
+              <div class="course-card-tagline">Build, code, think, create. Bring computational thinking to every classroom.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/digital-transformation-and-ai/robotics-and-coding-in-schools">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="digital" data-priority="digital inclusion" data-title="Digital Wellbeing and Online Safety">
+            <div class="course-card-top" style="background:var(--cat-digital);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Digital Transformation and AI</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Digital Wellbeing and Online Safety</div>
+              <div class="course-card-tagline">Helping students thrive in a digital world, not just survive it.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/digital-transformation-and-ai/digital-wellbeing-and-online-safety">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <!-- SCHOOL: INNOVATIVE TEACHING METHODS -->
+          <div class="course-card-item" data-sector="school" data-category="teaching" data-priority="inclusion digital" data-title="Gamifying the Classroom">
+            <div class="course-card-top" style="background:var(--cat-teaching);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Innovative Teaching Methods</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Gamifying the Classroom</div>
+              <div class="course-card-tagline">Motivation, engagement and deep learning through the power of play.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/innovative-teaching-methods/gamifying-the-classroom">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="teaching" data-priority="digital inclusion" data-title="Flipped Classroom">
+            <div class="course-card-top" style="background:var(--cat-teaching);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Innovative Teaching Methods</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Flipped Classroom</div>
+              <div class="course-card-tagline">Flip your classroom. Reclaim your teaching time for what matters most.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/innovative-teaching-methods/flipped-classroom">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="teaching" data-priority="inclusion democratic" data-title="Project-Based and Design-Based Learning">
+            <div class="course-card-top" style="background:var(--cat-teaching);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Innovative Teaching Methods</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Project-Based and Design-Based Learning</div>
+              <div class="course-card-tagline">Real problems. Real collaboration. Real learning.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/innovative-teaching-methods/project-based-and-design-based-learning">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="teaching" data-priority="digital inclusion" data-title="STEM and STEAM Education">
+            <div class="course-card-top" style="background:var(--cat-teaching);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Innovative Teaching Methods</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">STEM and STEAM Education</div>
+              <div class="course-card-tagline">Science, technology, engineering, arts and mathematics. Connected, relevant and inspiring.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/innovative-teaching-methods/stem-and-steam-education">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="teaching" data-priority="inclusion environment" data-title="Outdoor and Experiential Learning">
+            <div class="course-card-top" style="background:var(--cat-teaching);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Innovative Teaching Methods</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Outdoor and Experiential Learning</div>
+              <div class="course-card-tagline">Take the classroom outside. Learn where learning was always meant to happen.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag environment">Environment and Climate</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/innovative-teaching-methods/outdoor-and-experiential-learning">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="teaching" data-priority="inclusion digital" data-title="Personalized Learning and Differentiated Instruction">
+            <div class="course-card-top" style="background:var(--cat-teaching);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Innovative Teaching Methods</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Personalized Learning and Differentiated Instruction</div>
+              <div class="course-card-tagline">Every learner is different. Your teaching should reflect that.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/innovative-teaching-methods/personalized-learning-and-differentiated-instruction">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <!-- SCHOOL: INCLUSION, WELLBEING AND SCHOOL SAFETY -->
+          <div class="course-card-item" data-sector="school" data-category="inclusion" data-priority="inclusion" data-title="Inclusive Education and Special Needs">
+            <div class="course-card-top" style="background:var(--cat-inclusion);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Inclusion, Wellbeing and School Safety</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Inclusive Education and Special Needs</div>
+              <div class="course-card-tagline">Every student deserves a teacher who knows how to reach them.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety/inclusive-education-and-special-needs">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="inclusion" data-priority="inclusion" data-title="Neurodiversity and Trauma-Informed Teaching">
+            <div class="course-card-top" style="background:var(--cat-inclusion);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Inclusion, Wellbeing and School Safety</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Neurodiversity and Trauma-Informed Teaching</div>
+              <div class="course-card-tagline">See the whole child. Teach to their strengths.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety/neurodiversity-and-trauma-informed-teaching">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="inclusion" data-priority="inclusion democratic" data-title="Peer Bullying Prevention">
+            <div class="course-card-top" style="background:var(--cat-inclusion);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Inclusion, Wellbeing and School Safety</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Peer Bullying Prevention</div>
+              <div class="course-card-tagline">Safe schools are built, not assumed.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety/peer-bullying-prevention">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="inclusion" data-priority="inclusion digital" data-title="Cyber Bullying and Digital Safety">
+            <div class="course-card-top" style="background:var(--cat-inclusion);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Inclusion, Wellbeing and School Safety</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Cyber Bullying and Digital Safety</div>
+              <div class="course-card-tagline">Online harm is real harm. Schools need to respond.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety/cyber-bullying-and-digital-safety">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="inclusion" data-priority="inclusion democratic" data-title="Gender Equality in Education">
+            <div class="course-card-top" style="background:var(--cat-inclusion);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Inclusion, Wellbeing and School Safety</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Gender Equality in Education</div>
+              <div class="course-card-tagline">Create a classroom where every student can be who they are.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety/gender-equality-in-education">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="inclusion" data-priority="inclusion" data-title="Teacher Wellbeing and Burnout Prevention">
+            <div class="course-card-top" style="background:var(--cat-inclusion);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Inclusion, Wellbeing and School Safety</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Teacher Wellbeing and Burnout Prevention</div>
+              <div class="course-card-tagline">You give everything to your students. This week is for you.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety/teacher-wellbeing-and-burnout-prevention">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="inclusion" data-priority="inclusion" data-title="Mindfulness and Social-Emotional Learning">
+            <div class="course-card-top" style="background:var(--cat-inclusion);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Inclusion, Wellbeing and School Safety</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Mindfulness and Social-Emotional Learning</div>
+              <div class="course-card-tagline">Calm, connected and ready to learn. Building emotional intelligence in your school.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety/mindfulness-and-social-emotional-learning">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <!-- SCHOOL: LANGUAGE AND COMMUNICATION -->
+          <div class="course-card-item" data-sector="school" data-category="language" data-priority="inclusion digital" data-title="CLIL: Content and Language Integrated Learning">
+            <div class="course-card-top" style="background:var(--cat-language);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Language and Communication</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">CLIL: Content and Language Integrated Learning</div>
+              <div class="course-card-tagline">Teach your subject in a second language. Open your classroom to Europe.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/language-and-communication/clil-content-and-language-integrated-learning">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="language" data-priority="inclusion democratic" data-title="Creative Drama in Education">
+            <div class="course-card-top" style="background:var(--cat-language);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Language and Communication</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Creative Drama in Education</div>
+              <div class="course-card-tagline">Tell stories. Find voices. Transform your teaching through theatre.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/language-and-communication/creative-drama-in-education">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="language" data-priority="inclusion digital" data-title="English Language for Teachers">
+            <div class="course-card-top" style="background:var(--cat-language);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Language and Communication</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">English Language for Teachers</div>
+              <div class="course-card-tagline">Communicate with confidence. Teach in English. Open more doors.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/language-and-communication/english-language-for-teachers">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="language" data-priority="digital democratic" data-title="Media Literacy and Critical Thinking">
+            <div class="course-card-top" style="background:var(--cat-language);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Language and Communication</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Media Literacy and Critical Thinking</div>
+              <div class="course-card-tagline">In a world of information overload, critical thinking is the most important skill you can teach.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/language-and-communication/media-literacy-and-critical-thinking">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <!-- SCHOOL: SUSTAINABILITY AND GLOBAL CITIZENSHIP -->
+          <div class="course-card-item" data-sector="school" data-category="sustainability" data-priority="environment democratic" data-title="Eco-Schools and Environmental Education">
+            <div class="course-card-top" style="background:var(--cat-sustainability);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Sustainability and Global Citizenship</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Eco-Schools and Environmental Education</div>
+              <div class="course-card-tagline">Put sustainability at the heart of your school. Build the future your students will live in.</div>
+              <div class="priority-tags"><span class="priority-tag environment">Environment and Climate</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/sustainability-and-global-citizenship/eco-schools-and-environmental-education">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="sustainability" data-priority="democratic inclusion" data-title="Global Citizenship and European Values">
+            <div class="course-card-top" style="background:var(--cat-sustainability);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Sustainability and Global Citizenship</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Global Citizenship and European Values</div>
+              <div class="course-card-tagline">Educate global citizens. Build the Europe you want your students to inherit.</div>
+              <div class="priority-tags"><span class="priority-tag democratic">Participation in Democratic Life</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/sustainability-and-global-citizenship/global-citizenship-and-european-values">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="sustainability" data-priority="democratic inclusion" data-title="Cultural Heritage in Education">
+            <div class="course-card-top" style="background:var(--cat-sustainability);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Sustainability and Global Citizenship</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Cultural Heritage in Education</div>
+              <div class="course-card-tagline">Our past is a resource. Teach students to read it, value it and build on it.</div>
+              <div class="priority-tags"><span class="priority-tag democratic">Participation in Democratic Life</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/sustainability-and-global-citizenship/cultural-heritage-in-education">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <!-- SCHOOL: SCHOOL LEADERSHIP AND DEVELOPMENT -->
+          <div class="course-card-item" data-sector="school" data-category="leadership" data-priority="inclusion digital" data-title="Classroom Management">
+            <div class="course-card-top" style="background:var(--cat-leadership);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">School Leadership and Development</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Classroom Management</div>
+              <div class="course-card-tagline">A well-managed classroom is where real learning begins.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/school-leadership-and-development/classroom-management">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="leadership" data-priority="digital inclusion" data-title="School Innovation and Leadership">
+            <div class="course-card-top" style="background:var(--cat-leadership);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">School Leadership and Development</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">School Innovation and Leadership</div>
+              <div class="course-card-tagline">Great schools are led, not managed.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/school-leadership-and-development/school-innovation-and-leadership">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="leadership" data-priority="digital democratic" data-title="Entrepreneurship in Education">
+            <div class="course-card-top" style="background:var(--cat-leadership);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">School Leadership and Development</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Entrepreneurship in Education</div>
+              <div class="course-card-tagline">Teach students to think like entrepreneurs. Build a school that does too.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/school-leadership-and-development/entrepreneurship-in-education">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="leadership" data-priority="all" data-title="Erasmus+ Project Management and EU Funding">
+            <div class="course-card-top" style="background:var(--cat-leadership);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">School Leadership and Development</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Erasmus+ Project Management and EU Funding</div>
+              <div class="course-card-tagline">Run a great Erasmus+ project. Make the most of every euro.</div>
+              <div class="priority-tags"><span class="priority-tag all-priorities">All four priorities</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/school-leadership-and-development/erasmus-plus-project-management-and-eu-funding">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="leadership" data-priority="all" data-title="Erasmus+ KA2 Project Writing and Cooperation Partnerships">
+            <div class="course-card-top" style="background:var(--cat-leadership);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">School Leadership and Development</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Erasmus+ KA2 Project Writing and Cooperation Partnerships</div>
+              <div class="course-card-tagline">Your school has great ideas. This course gives you the skills to fund them.</div>
+              <div class="priority-tags"><span class="priority-tag all-priorities">All four priorities</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/school-leadership-and-development/erasmus-plus-ka2-project-writing-and-cooperation-partnerships">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="leadership" data-priority="all" data-title="EU Centralised Projects and the European Funding Landscape">
+            <div class="course-card-top" style="background:var(--cat-leadership);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">School Leadership and Development</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">EU Centralised Projects and the European Funding Landscape</div>
+              <div class="course-card-tagline">Erasmus+ KA1 and KA2 are the beginning. The European funding landscape goes much further.</div>
+              <div class="priority-tags"><span class="priority-tag all-priorities">All four priorities</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/school-leadership-and-development/eu-centralised-projects-and-the-european-funding-landscape">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <!-- SCHOOL: PEDAGOGY AND EARLY CHILDHOOD -->
+          <div class="course-card-item" data-sector="school" data-category="pedagogy" data-priority="inclusion democratic" data-title="Montessori and Reggio Emilia Approaches">
+            <div class="course-card-top" style="background:var(--cat-pedagogy);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Pedagogy and Early Childhood</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Montessori and Reggio Emilia Approaches</div>
+              <div class="course-card-tagline">Two visions of the child. One transformative approach to education.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/pedagogy-and-early-childhood/montessori-and-reggio-emilia-approaches">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="pedagogy" data-priority="inclusion democratic" data-title="Early Childhood Education and Care">
+            <div class="course-card-top" style="background:var(--cat-pedagogy);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Pedagogy and Early Childhood</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Early Childhood Education and Care</div>
+              <div class="course-card-tagline">The first years shape everything. Make them count.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/pedagogy-and-early-childhood/early-childhood-education-and-care">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="school" data-category="pedagogy" data-priority="inclusion digital" data-title="Neuroeducation and Brain-Based Teaching">
+            <div class="course-card-top" style="background:var(--cat-pedagogy);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">Pedagogy and Early Childhood</span><span class="sector-badge school">School</span></div>
+              <div class="course-card-title">Neuroeducation and Brain-Based Teaching</div>
+              <div class="course-card-tagline">Teach with the brain in mind. Transform how learning happens.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/courses/pedagogy-and-early-childhood/neuroeducation-and-brain-based-teaching">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <!-- VET STAFF TRAINING -->
+          <div class="course-card-item" data-sector="vet" data-category="vet" data-priority="digital" data-title="AI and Digital Tools for VET Trainers">
+            <div class="course-card-top" style="background:var(--cat-vet);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">VET Staff Training</span><span class="sector-badge vet">VET</span></div>
+              <div class="course-card-title">AI and Digital Tools for VET Trainers</div>
+              <div class="course-card-tagline">Prepare your learners for the digital economy. Start with yourself.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/vet-mobility/courses/ai-and-digital-tools-for-vet-trainers">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="vet" data-category="vet" data-priority="environment inclusion" data-title="Green Skills and the Sustainable Economy">
+            <div class="course-card-top" style="background:var(--cat-vet);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">VET Staff Training</span><span class="sector-badge vet">VET</span></div>
+              <div class="course-card-title">Green Skills and the Sustainable Economy</div>
+              <div class="course-card-tagline">The green transition is reshaping every profession. Is your training keeping up?</div>
+              <div class="priority-tags"><span class="priority-tag environment">Environment and Climate</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/vet-mobility/courses/green-skills-and-the-sustainable-economy">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="vet" data-category="vet" data-priority="inclusion digital" data-title="Work-Based Learning Design and Assessment">
+            <div class="course-card-top" style="background:var(--cat-vet);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">VET Staff Training</span><span class="sector-badge vet">VET</span></div>
+              <div class="course-card-title">Work-Based Learning Design and Assessment</div>
+              <div class="course-card-tagline">The workplace is the most powerful classroom. Use it well.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/vet-mobility/courses/work-based-learning-design-and-assessment">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="vet" data-category="vet" data-priority="digital inclusion" data-title="Entrepreneurship and Innovation in VET">
+            <div class="course-card-top" style="background:var(--cat-vet);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">VET Staff Training</span><span class="sector-badge vet">VET</span></div>
+              <div class="course-card-title">Entrepreneurship and Innovation in VET</div>
+              <div class="course-card-tagline">Develop the entrepreneurial mindset. In your learners and in your institution.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/vet-mobility/courses/entrepreneurship-and-innovation-in-vet">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="vet" data-category="vet" data-priority="inclusion" data-title="Inclusion and Diversity in VET Settings">
+            <div class="course-card-top" style="background:var(--cat-vet);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">VET Staff Training</span><span class="sector-badge vet">VET</span></div>
+              <div class="course-card-title">Inclusion and Diversity in VET Settings</div>
+              <div class="course-card-tagline">VET is for everyone. Make sure your training reflects that.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/vet-mobility/courses/inclusion-and-diversity-in-vet-settings">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="vet" data-category="vet" data-priority="environment digital" data-title="Hospitality and Tourism Professional Development">
+            <div class="course-card-top" style="background:var(--cat-vet);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">VET Staff Training</span><span class="sector-badge vet">VET</span></div>
+              <div class="course-card-title">Hospitality and Tourism Professional Development</div>
+              <div class="course-card-tagline">Train where the industry lives. Learn from the best destinations in Europe.</div>
+              <div class="priority-tags"><span class="priority-tag environment">Environment and Climate</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>7 destinations &middot; 1 week</span><a href="/sudenexus-nl/vet-mobility/courses/hospitality-and-tourism-professional-development">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="vet" data-category="vet" data-priority="inclusion digital" data-title="Health and Social Care Professional Development">
+            <div class="course-card-top" style="background:var(--cat-vet);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">VET Staff Training</span><span class="sector-badge vet">VET</span></div>
+              <div class="course-card-title">Health and Social Care Professional Development</div>
+              <div class="course-card-tagline">The most human profession deserves the best training.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag digital">Digital Transformation</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/vet-mobility/courses/health-and-social-care-professional-development">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="vet" data-category="vet" data-priority="inclusion democratic" data-title="Industry Partnership and Workplace Mentoring">
+            <div class="course-card-top" style="background:var(--cat-vet);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">VET Staff Training</span><span class="sector-badge vet">VET</span></div>
+              <div class="course-card-title">Industry Partnership and Workplace Mentoring</div>
+              <div class="course-card-tagline">The bridge between classroom and workplace makes all the difference.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/vet-mobility/courses/industry-partnership-and-workplace-mentoring">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <!-- ADU STAFF TRAINING -->
+          <div class="course-card-item" data-sector="adu" data-category="adu" data-priority="inclusion democratic" data-title="The Art of Facilitating Adult Learning">
+            <div class="course-card-top" style="background:var(--cat-adu);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">ADU Staff Training</span><span class="sector-badge adu">ADU</span></div>
+              <div class="course-card-title">The Art of Facilitating Adult Learning</div>
+              <div class="course-card-tagline">Adults learn differently. Facilitate with skill, warmth and confidence.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/adu-mobility/courses/the-art-of-facilitating-adult-learning">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="adu" data-category="adu" data-priority="digital inclusion" data-title="AI and Digital Innovation for Adult Educators">
+            <div class="course-card-top" style="background:var(--cat-adu);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">ADU Staff Training</span><span class="sector-badge adu">ADU</span></div>
+              <div class="course-card-title">AI and Digital Innovation for Adult Educators</div>
+              <div class="course-card-tagline">Digital tools designed for your learners. Starting with you.</div>
+              <div class="priority-tags"><span class="priority-tag digital">Digital Transformation</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/adu-mobility/courses/ai-and-digital-innovation-for-adult-educators">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="adu" data-category="adu" data-priority="inclusion democratic" data-title="Reaching Every Adult Learner: Inclusion and Diversity in Practice">
+            <div class="course-card-top" style="background:var(--cat-adu);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">ADU Staff Training</span><span class="sector-badge adu">ADU</span></div>
+              <div class="course-card-title">Reaching Every Adult Learner: Inclusion and Diversity in Practice</div>
+              <div class="course-card-tagline">The adults who need learning most are often the hardest to reach. This course changes that.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/adu-mobility/courses/reaching-every-adult-learner">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="adu" data-category="adu" data-priority="inclusion democratic" data-title="Building Learning Communities: Facilitation, Coaching and Group Dynamics">
+            <div class="course-card-top" style="background:var(--cat-adu);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">ADU Staff Training</span><span class="sector-badge adu">ADU</span></div>
+              <div class="course-card-title">Building Learning Communities: Facilitation, Coaching and Group Dynamics</div>
+              <div class="course-card-tagline">When a group becomes a community, learning transforms.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/adu-mobility/courses/building-learning-communities">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="adu" data-category="adu" data-priority="democratic inclusion" data-title="Active Citizenship and Democratic Values in Adult Education">
+            <div class="course-card-top" style="background:var(--cat-adu);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">ADU Staff Training</span><span class="sector-badge adu">ADU</span></div>
+              <div class="course-card-title">Active Citizenship and Democratic Values in Adult Education</div>
+              <div class="course-card-tagline">Democracy is not a given. Adult education is one of its strongest safeguards.</div>
+              <div class="priority-tags"><span class="priority-tag democratic">Participation in Democratic Life</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/adu-mobility/courses/active-citizenship-and-democratic-values">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="adu" data-category="adu" data-priority="inclusion" data-title="Recharge and Thrive: Wellbeing and Resilience for Adult Educators">
+            <div class="course-card-top" style="background:var(--cat-adu);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">ADU Staff Training</span><span class="sector-badge adu">ADU</span></div>
+              <div class="course-card-title">Recharge and Thrive: Wellbeing and Resilience for Adult Educators</div>
+              <div class="course-card-tagline">You give everything to your learners. This week is for you.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/adu-mobility/courses/recharge-and-thrive">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="adu" data-category="adu" data-priority="environment inclusion" data-title="Green Communities: Sustainability and the Environment in Adult Education">
+            <div class="course-card-top" style="background:var(--cat-adu);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">ADU Staff Training</span><span class="sector-badge adu">ADU</span></div>
+              <div class="course-card-title">Green Communities: Sustainability and the Environment in Adult Education</div>
+              <div class="course-card-tagline">Adult education can be a powerful engine for community-level sustainability action.</div>
+              <div class="priority-tags"><span class="priority-tag environment">Environment and Climate</span><span class="priority-tag inclusion">Inclusion and Diversity</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/adu-mobility/courses/green-communities">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+          <div class="course-card-item" data-sector="adu" data-category="adu" data-priority="inclusion democratic" data-title="Social Entrepreneurship and Community Impact in Adult Education">
+            <div class="course-card-top" style="background:var(--cat-adu);"></div>
+            <div class="course-card-inner">
+              <div class="course-card-meta"><span class="course-cat-label">ADU Staff Training</span><span class="sector-badge adu">ADU</span></div>
+              <div class="course-card-title">Social Entrepreneurship and Community Impact in Adult Education</div>
+              <div class="course-card-tagline">Change your community. Build your organisation. Inspire your learners.</div>
+              <div class="priority-tags"><span class="priority-tag inclusion">Inclusion and Diversity</span><span class="priority-tag democratic">Participation in Democratic Life</span></div>
+            </div>
+            <div class="course-card-footer"><span>13 destinations &middot; 1 week</span><a href="/sudenexus-nl/adu-mobility/courses/social-entrepreneurship-and-community-impact">View Course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div>
+          </div>
+
+        </div>
+
+        <!-- No results message -->
+        <div class="no-results" id="no-results" role="status">
+          <h3>No courses found for your search</h3>
+          <p>Try adjusting your filters or clearing them to see all available courses. If you are looking for something specific that is not in our catalogue, our Design Your Mobility service can help.</p>
+          <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+            <button class="btn btn-outline-navy" id="no-results-clear">Clear All Filters</button>
+            <a href="/sudenexus-nl/design-your-mobility" class="btn btn-primary">Design Your Mobility</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LEARNER MOBILITY BLOCK -->
+    <section class="section-sm bg-off-white">
+      <div class="container">
+        <div class="learner-mobility">
+          <div style="background:var(--color-navy);border-radius:var(--radius-xl);padding:2rem;color:#fff;">
+            <h3 style="color:#fff;margin-bottom:0.75rem;">VET Learner Mobility</h3>
+            <p style="color:rgba(255,255,255,0.75);font-size:0.9rem;margin-bottom:1.5rem;">We support VET institutions in arranging Erasmus+ learner placements and ErasmusPro long-term mobility across our 13 destinations. Sector-matched, quality-assured and fully documented.</p>
+            <a href="/sudenexus-nl/vet-mobility" class="btn btn-secondary">Explore VET Learner Mobility</a>
+          </div>
+          <div style="background:var(--cat-adu);border-radius:var(--radius-xl);padding:2rem;color:#fff;">
+            <h3 style="color:#fff;margin-bottom:0.75rem;">ADU Learner Mobility</h3>
+            <p style="color:rgba(255,255,255,0.75);font-size:0.9rem;margin-bottom:1.5rem;">Adult learners are eligible for Erasmus+ mobility too. We support adult education organisations in designing study visits, cultural exchanges and intercultural learning experiences for their adult learner groups.</p>
+            <a href="/sudenexus-nl/adu-mobility" class="btn btn-secondary">Explore ADU Learner Mobility</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CANNOT FIND -->
+    <section class="section bg-white" aria-labelledby="cannot-find-heading">
+      <div class="container" style="max-width:700px;text-align:center;">
+        <h2 id="cannot-find-heading" class="reveal">Cannot Find the Right Course?</h2>
+        <p class="reveal" style="color:#4a5568;margin:1rem 0 2rem;">Our catalogue covers 52 professionally developed programmes but we know that not every professional development need fits neatly into a catalogue. Through our Design Your Mobility service we create bespoke courses, tailor existing programmes for specific groups and design entire mobility projects from the ground up.</p>
+        <div class="reveal" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="/sudenexus-nl/design-your-mobility" class="btn btn-primary btn-lg">Design Your Mobility</a>
+          <a href="/sudenexus-nl/contact" class="btn btn-outline-navy btn-lg">Contact Our Team</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIND YOUR COURSE CROSSLINK -->
+    <section class="section bg-off-white" aria-labelledby="fyc-crosslink-heading">
+      <div class="container" style="max-width:700px;text-align:center;">
+        <div class="reveal">
+          <h2 id="fyc-crosslink-heading">Not Sure Where to Start?</h2>
+          <p style="color:#4a5568;margin:1rem 0 2rem;">Tell us your professional role and we will show you the courses most relevant to your work. Our Find Your Course tool matches 34 professional profiles to the courses built for them.</p>
+          <a href="/sudenexus-nl/find-your-course" class="btn btn-navy btn-lg">Find Your Course</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner" aria-labelledby="catalogue-cta-heading">
+      <div class="container cta-banner-content">
+        <h2 id="catalogue-cta-heading" class="reveal">Ready to Book Your Course?</h2>
+        <p class="reveal reveal-delay-1">Browse our full catalogue, check available dates across 13 destinations or contact our team to discuss group bookings and bespoke options.</p>
+        <div class="cta-banner-actions reveal reveal-delay-2">
+          <a href="/sudenexus-nl/dates" class="btn btn-primary btn-lg">Check Course Dates</a>
+          <a href="/sudenexus-nl/contact" class="btn btn-secondary btn-lg">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo"><img src="/sudenexus-nl/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="130" height="32"></div>
+          <p>Sude Nexus is a Netherlands-based Erasmus+ training organisation offering professional development courses for teachers and school staff across Europe and the Mediterranean.</p>
+          <a href="/sudenexus-nl/eu-framework" class="footer-eu-link">EU Framework Reference Hub</a>
+        </div>
+        <div class="footer-col">
+          <h4>Course Categories</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="/sudenexus-nl/courses/digital-transformation-and-ai">Digital Transformation and AI</a></li>
+            <li><a href="/sudenexus-nl/courses/innovative-teaching-methods">Innovative Teaching Methods</a></li>
+            <li><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety">Inclusion, Wellbeing and School Safety</a></li>
+            <li><a href="/sudenexus-nl/courses/language-and-communication">Language and Communication</a></li>
+            <li><a href="/sudenexus-nl/courses/sustainability-and-global-citizenship">Sustainability and Global Citizenship</a></li>
+            <li><a href="/sudenexus-nl/courses/school-leadership-and-development">School Leadership and Development</a></li>
+            <li><a href="/sudenexus-nl/courses/pedagogy-and-early-childhood">Pedagogy and Early Childhood</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="/sudenexus-nl/find-your-course">Find Your Course</a></li>
+            <li><a href="/sudenexus-nl/dates">Course Dates</a></li>
+            <li><a href="/sudenexus-nl/locations">Our Locations</a></li>
+            <li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li>
+            <li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li>
+            <li><a href="/sudenexus-nl/design-your-mobility">Design Your Mobility</a></li>
+            <li><a href="/sudenexus-nl/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact">
+            <p>Sude Nexus, The Netherlands</p>
+            <p><a href="mailto:info@sudenexus.com" style="color:rgba(255,255,255,0.6);">info@sudenexus.com</a></p>
+            <p>Monday to Friday, 9am to 6pm CET</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">Organisation registered in the Netherlands | Erasmus+ accredited provider<br>Copyright 2026 Sude Nexus. All rights reserved.</div>
+        <div class="footer-bottom-right">
+          <a href="/sudenexus-nl/privacy">Privacy Policy</a>
+          <a href="/sudenexus-nl/privacy#cookies">Cookie Notice</a>
+          <a href="#" data-open-cookie-settings>Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" role="dialog" aria-label="Cookie consent">
+    <p>We use cookies to ensure the site works correctly and to understand how it is used. Read our <a href="/sudenexus-nl/privacy#cookies">Cookie Policy</a> for details.</p>
+    <div class="cookie-actions">
+      <button class="btn btn-secondary btn-sm" data-cookie-decline>Essential only</button>
+      <button class="btn btn-primary btn-sm" data-cookie-accept>Accept all</button>
+    </div>
+  </div>
+
+  <script src="/sudenexus-nl/assets/js/main.js" defer></script>
+  <script>
+    // Course catalogue filter logic
+    (function() {
+      const cards = document.querySelectorAll('.course-card-item');
+      const filterSector = document.getElementById('filter-sector');
+      const filterCategory = document.getElementById('filter-category');
+      const filterPriority = document.getElementById('filter-priority');
+      const filterSearch = document.getElementById('filter-search');
+      const filterClear = document.getElementById('filter-clear');
+      const resultsCount = document.getElementById('results-count');
+      const noResults = document.getElementById('no-results');
+      const noResultsClear = document.getElementById('no-results-clear');
+      const sectorTabs = document.querySelectorAll('.sector-tab');
+      const totalCourses = cards.length;
+
+      function applyFilters() {
+        const sector = filterSector.value;
+        const category = filterCategory.value;
+        const priority = filterPriority.value;
+        const search = filterSearch.value.toLowerCase().trim();
+        let visible = 0;
+
+        cards.forEach(function(card) {
+          const cardSector = card.dataset.sector || '';
+          const cardCategory = card.dataset.category || '';
+          const cardPriority = card.dataset.priority || '';
+          const cardTitle = (card.dataset.title || '').toLowerCase();
+
+          const matchSector   = !sector   || cardSector === sector;
+          const matchCategory = !category || cardCategory === category;
+          const matchPriority = !priority || cardPriority.includes(priority);
+          const matchSearch   = !search   || cardTitle.includes(search);
+
+          if (matchSector && matchCategory && matchPriority && matchSearch) {
+            card.classList.remove('hidden');
+            visible++;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        resultsCount.textContent = 'Showing ' + visible + ' of ' + totalCourses + ' courses';
+        noResults.classList.toggle('visible', visible === 0);
+      }
+
+      function clearFilters() {
+        filterSector.value = '';
+        filterCategory.value = '';
+        filterPriority.value = '';
+        filterSearch.value = '';
+        sectorTabs.forEach(function(tab) { tab.classList.remove('active'); });
+        document.querySelector('[data-tab="all"]').classList.add('active');
+        applyFilters();
+      }
+
+      filterSector.addEventListener('change', applyFilters);
+      filterCategory.addEventListener('change', applyFilters);
+      filterPriority.addEventListener('change', applyFilters);
+      filterSearch.addEventListener('input', applyFilters);
+      filterClear.addEventListener('click', clearFilters);
+      if (noResultsClear) noResultsClear.addEventListener('click', clearFilters);
+
+      sectorTabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          sectorTabs.forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected', 'true');
+          const tabValue = tab.dataset.tab;
+          filterSector.value = tabValue === 'all' ? '' : tabValue;
+          applyFilters();
+        });
+      });
+
+      // Initial count
+      resultsCount.textContent = 'Showing ' + totalCourses + ' of ' + totalCourses + ' courses';
+    })();
+  </script>
+</body>
+</html>
