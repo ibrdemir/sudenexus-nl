@@ -1,222 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Course Dates | sudeNEXUS Learning</title>
-  <meta name="description" content="Browse all upcoming Erasmus+ course dates across 13 European destinations. Filter by course, destination, month and sector. Book now or enquire for availability.">
+  <meta name="description" content="Browse upcoming Erasmus+ course dates across 13 European destinations. Filter by course, city, month or Erasmus+ priority.">
   <link rel="canonical" href="https://sudenexus.nl/dates">
   <link rel="stylesheet" href="/sudenexus-nl/assets/css/main.css">
   <link rel="icon" type="image/svg+xml" href="/sudenexus-nl/assets/images/1sudex-logo.svg">
   <style>
-    /* Dates filter bar */
-    .dates-filter-bar {
-      background: #fff;
-      border-bottom: 1px solid var(--color-light-grey);
-      padding: 1rem 0;
-      position: sticky;
-      top: var(--nav-height);
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(30,58,95,0.06);
-    }
-    .dates-filter-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 var(--space-xl);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-    .filter-select {
-      padding: 8px 28px 8px 12px;
-      border: 1.5px solid var(--color-light-grey);
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      font-family: var(--font-body);
-      color: var(--color-charcoal);
-      background: #fff;
-      cursor: pointer;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231E3A5F' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-    }
-    .filter-select:focus { outline: none; border-color: var(--color-navy); }
-    .filter-clear-btn { font-size: 0.8rem; color: var(--color-burgundy); font-weight: 600; cursor: pointer; background: none; border: none; }
-    .dates-count { font-size: 0.8rem; color: #6b7280; margin-left: auto; white-space: nowrap; }
-
-    /* View toggle */
-    .view-toggle {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      flex-shrink: 0;
-    }
-    .view-btn {
-      padding: 6px 14px;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid var(--color-light-grey);
-      background: #fff;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #6b7280;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .view-btn.active { border-color: var(--color-navy); background: var(--color-navy); color: #fff; }
-
-    /* Availability key */
-    .availability-key {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      padding: 0.75rem 0;
-    }
-    .avail-key-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.8rem;
-      color: #6b7280;
-    }
-    .avail-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .avail-dot.available  { background: #16a34a; }
-    .avail-dot.few        { background: #d97706; }
-    .avail-dot.full       { background: #dc2626; }
-    .avail-dot.enquire    { background: #9ca3af; }
-
-    /* List view table */
-    .dates-table { width: 100%; border-collapse: collapse; }
-    .dates-table thead th {
-      text-align: left;
-      padding: 0.75rem 1rem;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #6b7280;
-      background: var(--color-off-white);
-      border-bottom: 2px solid var(--color-light-grey);
-    }
-    .dates-table tbody tr {
-      border-bottom: 1px solid var(--color-light-grey);
-      transition: background 150ms ease;
-    }
-    .dates-table tbody tr:hover { background: rgba(30,58,95,0.02); }
-    .dates-table td {
-      padding: 1rem;
-      font-size: 0.875rem;
-      vertical-align: middle;
-    }
-    .cat-bar {
-      display: inline-block;
-      width: 4px;
-      height: 36px;
-      border-radius: 2px;
-      margin-right: 12px;
-      vertical-align: middle;
-    }
-    .dates-course-name {
-      font-weight: 600;
-      color: var(--color-navy);
-    }
-    .dates-course-name a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .dates-course-name a:hover { text-decoration: underline; }
-    .avail-badge {
-      padding: 3px 10px;
-      border-radius: var(--radius-full);
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-    .avail-badge.available  { background: #dcfce7; color: #15803d; }
-    .avail-badge.few        { background: #fef3c7; color: #b45309; }
-    .avail-badge.full       { background: #fee2e2; color: #b91c1c; }
-    .avail-badge.enquire    { background: var(--color-light-grey); color: #6b7280; }
-
-    .sector-pill {
-      padding: 2px 8px;
-      border-radius: var(--radius-full);
-      font-size: 0.7rem;
-      font-weight: 700;
-      color: #fff;
-      margin-left: 6px;
-    }
-    .sector-pill.school { background: var(--color-navy); }
-    .sector-pill.vet    { background: var(--cat-vet); }
-    .sector-pill.adu    { background: var(--cat-adu); }
-
-    /* Loading state */
-    .dates-loading {
-      text-align: center;
-      padding: 4rem 1rem;
-      color: #6b7280;
-    }
-    .dates-loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid var(--color-light-grey);
-      border-top-color: var(--color-navy);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 1rem;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* No results */
-    .dates-no-results {
-      display: none;
-      text-align: center;
-      padding: 4rem 1rem;
-    }
-    .dates-no-results.visible { display: block; }
-
-    @media (max-width: 768px) {
-      .dates-table thead { display: none; }
-      .dates-table tbody tr { display: block; padding: 0.75rem 0; }
-      .dates-table td { display: block; padding: 0.25rem 1rem; border: none; }
-    }
+    .dates-filters{display:flex;flex-wrap:wrap;gap:0.75rem;margin-bottom:2rem;}
+    .dates-filters select{padding:0.5rem 1rem;border-radius:var(--radius-md);border:1px solid var(--color-light-grey);font-size:0.875rem;background:#fff;color:var(--color-navy);font-weight:500;cursor:pointer;}
+    .dates-filters select:focus{outline:2px solid var(--color-navy);}
+    .dates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem;}
+    .date-card{background:#fff;border-radius:var(--radius-xl);border:1px solid var(--color-light-grey);overflow:hidden;transition:box-shadow 0.2s;}
+    .date-card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+    .date-card-header{padding:1rem 1.25rem;background:var(--color-navy);color:#fff;}
+    .date-card-dates{font-size:1.0625rem;font-weight:700;}
+    .date-card-location{font-size:0.8125rem;opacity:0.8;margin-top:2px;}
+    .date-card-body{padding:1.25rem;}
+    .date-card-course{font-weight:700;color:var(--color-navy);font-size:0.9375rem;margin-bottom:0.5rem;}
+    .date-card-meta{display:flex;gap:0.75rem;flex-wrap:wrap;font-size:0.8rem;color:#6b7280;margin-bottom:1rem;}
+    .date-badge{padding:2px 8px;border-radius:9999px;font-size:0.75rem;font-weight:600;}
+    .loading-state{text-align:center;padding:3rem;color:#6b7280;}
+    .no-results{text-align:center;padding:3rem;color:#6b7280;display:none;}
+    #dates-count{font-size:0.875rem;color:#6b7280;margin-bottom:1.5rem;}
   </style>
 </head>
 <body class="page-body">
-
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="/sudenexus-nl/" class="nav-logo" aria-label="sudeNEXUS Learning home">
-        <img src="/sudenexus-nl/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="140" height="36">
-      </a>
+      <a href="/sudenexus-nl/" class="nav-logo"><img src="/sudenexus-nl/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="140" height="36"></a>
       <ul class="nav-links" role="list">
         <li><a href="/sudenexus-nl/about">About Us</a></li>
-        <li class="nav-dropdown">
-          <a href="/sudenexus-nl/courses" class="active">Courses</a>
-          <ul class="dropdown-menu" role="list">
-            <li><a href="/sudenexus-nl/courses">Course Catalogue</a></li>
-            <li><a href="/sudenexus-nl/find-your-course">Find Your Course</a></li>
-            <li><a href="/sudenexus-nl/dates">Course Dates</a></li>
-          </ul>
+        <li class="nav-dropdown"><a href="/sudenexus-nl/courses">Courses</a>
+          <ul class="dropdown-menu" role="list"><li><a href="/sudenexus-nl/courses">Course Catalogue</a></li><li><a href="/sudenexus-nl/find-your-course">Find Your Course</a></li><li><a href="/sudenexus-nl/dates">Course Dates</a></li></ul>
         </li>
-        <li class="nav-dropdown">
-          <a href="/sudenexus-nl/locations">Locations</a>
-          <ul class="dropdown-menu" role="list">
-            <li><a href="/sudenexus-nl/locations">All Destinations</a></li>
-          </ul>
+        <li class="nav-dropdown"><a href="/sudenexus-nl/locations">Locations</a>
+          <ul class="dropdown-menu" role="list"><li><a href="/sudenexus-nl/locations">All Destinations</a></li></ul>
         </li>
-        <li class="nav-dropdown">
-          <a href="/sudenexus-nl/vet-mobility">VET and ADU</a>
-          <ul class="dropdown-menu" role="list">
-            <li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li>
-            <li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li>
-          </ul>
+        <li class="nav-dropdown"><a href="/sudenexus-nl/vet-mobility">VET and ADU</a>
+          <ul class="dropdown-menu" role="list"><li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li><li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li></ul>
         </li>
         <li><a href="/sudenexus-nl/services">Services</a></li>
         <li><a href="/sudenexus-nl/design-your-mobility">Design Your Mobility</a></li>
@@ -227,464 +50,247 @@
   </nav>
   <div class="nav-mobile" aria-label="Mobile navigation">
     <ul class="nav-mobile-links" role="list">
-      <li><a href="/sudenexus-nl/about">About Us</a></li>
-      <li><a href="/sudenexus-nl/courses">Courses</a></li>
-      <li><a href="/sudenexus-nl/locations">Locations</a></li>
-      <li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li>
-      <li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li>
-      <li><a href="/sudenexus-nl/services">Services</a></li>
-      <li><a href="/sudenexus-nl/design-your-mobility">Design Your Mobility</a></li>
-      <li><a href="/sudenexus-nl/contact">Contact Us</a></li>
+      <li><a href="/sudenexus-nl/about">About Us</a></li><li><a href="/sudenexus-nl/courses">Courses</a></li>
+      <li><a href="/sudenexus-nl/locations">Locations</a></li><li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li>
+      <li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li><li><a href="/sudenexus-nl/services">Services</a></li>
+      <li><a href="/sudenexus-nl/design-your-mobility">Design Your Mobility</a></li><li><a href="/sudenexus-nl/contact">Contact Us</a></li>
     </ul>
   </div>
-
   <main>
-
-    <!-- HERO -->
-    <section class="page-hero">
+    <section class="page-hero" style="background:linear-gradient(135deg,#0b1424 0%,#1E3A5F 100%);">
       <div class="container page-hero-content">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="/sudenexus-nl/">Home</a><span aria-hidden="true">›</span>
-          <a href="/sudenexus-nl/courses">Courses</a><span aria-hidden="true">›</span>
-          <span class="current">Course Dates</span>
-        </nav>
+        <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/sudenexus-nl/">Home</a><span aria-hidden="true">&#8250;</span><span class="current">Course Dates</span></nav>
         <h1>Course Dates</h1>
-        <p>All upcoming Erasmus+ course sessions across 13 destinations. Updated regularly as new sessions are confirmed.</p>
+        <p>Upcoming Erasmus+ professional development courses across 13 European destinations.</p>
       </div>
     </section>
 
-    <!-- INTRO -->
-    <section class="section-sm bg-off-white">
+    <section class="section bg-off-white">
       <div class="container">
-        <p style="color:#4a5568;max-width:800px;">All Sude Nexus courses run from Sunday to Saturday. Participants arrive on Sunday afternoon, attend five full days of professional training from Monday to Friday, and take part in a guided cultural excursion on Saturday morning before departure. Use the filters below to search for available dates by course, destination, month, sector or Erasmus+ priority. Contact our team if you cannot find dates that work for your institution.</p>
+        <div class="dates-filters" role="search" aria-label="Filter course dates">
+          <select id="filter-course" aria-label="Filter by course">
+            <option value="">All Courses</option>
+          </select>
+          <select id="filter-location" aria-label="Filter by destination">
+            <option value="">All Destinations</option>
+            <option>Amsterdam</option><option>Rotterdam</option><option>Bruges</option>
+            <option>Hamburg</option><option>Berlin</option><option>Vienna</option>
+            <option>Barcelona</option><option>Athens</option><option>Thessaloniki</option>
+            <option>Naples</option><option>Cappadocia</option><option>Istanbul</option><option>Antalya</option>
+          </select>
+          <select id="filter-month" aria-label="Filter by month">
+            <option value="">All Months</option>
+            <option value="1">January</option><option value="2">February</option><option value="3">March</option>
+            <option value="4">April</option><option value="5">May</option><option value="6">June</option>
+            <option value="7">July</option><option value="8">August</option><option value="9">September</option>
+            <option value="10">October</option><option value="11">November</option><option value="12">December</option>
+          </select>
+          <select id="filter-sector" aria-label="Filter by sector">
+            <option value="">All Sectors</option>
+            <option value="school">School Education</option>
+            <option value="vet">VET Staff Training</option>
+            <option value="adu">ADU Staff Training</option>
+          </select>
+          <button class="btn btn-secondary" id="clear-filters" style="font-size:0.875rem;padding:0.5rem 1rem;">Clear filters</button>
+        </div>
+
+        <p id="dates-count"></p>
+        <div class="loading-state" id="loading">Loading course dates...</div>
+        <div class="dates-grid" id="dates-grid" role="list" style="display:none;"></div>
+        <div class="no-results" id="no-results">
+          <p style="font-size:1.0625rem;font-weight:600;color:var(--color-navy);">No dates found for your filters.</p>
+          <p style="margin-top:0.5rem;">Try adjusting your filters or <a href="/sudenexus-nl/contact">contact us</a> to discuss bespoke dates for your institution.</p>
+        </div>
       </div>
     </section>
 
-    <!-- FILTER BAR -->
-    <div class="dates-filter-bar" role="search" aria-label="Dates filters">
-      <div class="dates-filter-inner">
-        <select class="filter-select" id="dates-filter-course" aria-label="Filter by course">
-          <option value="">All Courses</option>
-          <option>Artificial Intelligence for Education</option>
-          <option>ICT Tools in the Classroom</option>
-          <option>Web 2.0 Tools for Teachers</option>
-          <option>Robotics and Coding in Schools</option>
-          <option>Digital Wellbeing and Online Safety</option>
-          <option>Gamifying the Classroom</option>
-          <option>Flipped Classroom</option>
-          <option>Project-Based and Design-Based Learning</option>
-          <option>STEM and STEAM Education</option>
-          <option>Outdoor and Experiential Learning</option>
-          <option>Personalized Learning and Differentiated Instruction</option>
-          <option>Inclusive Education and Special Needs</option>
-          <option>Neurodiversity and Trauma-Informed Teaching</option>
-          <option>Peer Bullying Prevention</option>
-          <option>Cyber Bullying and Digital Safety</option>
-          <option>Gender Equality in Education</option>
-          <option>Teacher Wellbeing and Burnout Prevention</option>
-          <option>Mindfulness and Social-Emotional Learning</option>
-          <option>CLIL: Content and Language Integrated Learning</option>
-          <option>Creative Drama in Education</option>
-          <option>English Language for Teachers</option>
-          <option>Media Literacy and Critical Thinking</option>
-          <option>Eco-Schools and Environmental Education</option>
-          <option>Global Citizenship and European Values</option>
-          <option>Cultural Heritage in Education</option>
-          <option>Classroom Management</option>
-          <option>School Innovation and Leadership</option>
-          <option>Entrepreneurship in Education</option>
-          <option>Erasmus+ Project Management and EU Funding</option>
-          <option>Erasmus+ KA2 Project Writing and Cooperation Partnerships</option>
-          <option>EU Centralised Projects and the European Funding Landscape</option>
-          <option>Montessori and Reggio Emilia Approaches</option>
-          <option>Early Childhood Education and Care</option>
-          <option>Neuroeducation and Brain-Based Teaching</option>
-          <option>AI and Digital Tools for VET Trainers</option>
-          <option>Green Skills and the Sustainable Economy</option>
-          <option>Work-Based Learning Design and Assessment</option>
-          <option>Entrepreneurship and Innovation in VET</option>
-          <option>Inclusion and Diversity in VET Settings</option>
-          <option>Hospitality and Tourism Professional Development</option>
-          <option>Health and Social Care Professional Development</option>
-          <option>Industry Partnership and Workplace Mentoring</option>
-          <option>The Art of Facilitating Adult Learning</option>
-          <option>AI and Digital Innovation for Adult Educators</option>
-          <option>Reaching Every Adult Learner: Inclusion and Diversity in Practice</option>
-          <option>Building Learning Communities: Facilitation, Coaching and Group Dynamics</option>
-          <option>Active Citizenship and Democratic Values in Adult Education</option>
-          <option>Recharge and Thrive: Wellbeing and Resilience for Adult Educators</option>
-          <option>Green Communities: Sustainability and the Environment in Adult Education</option>
-          <option>Social Entrepreneurship and Community Impact in Adult Education</option>
-        </select>
-        <select class="filter-select" id="dates-filter-destination" aria-label="Filter by destination">
-          <option value="">All Destinations</option>
-          <option>Amsterdam</option><option>Rotterdam</option><option>Bruges</option>
-          <option>Hamburg</option><option>Berlin</option><option>Vienna</option>
-          <option>Barcelona</option><option>Athens</option><option>Thessaloniki</option>
-          <option>Naples</option><option>Cappadocia</option><option>Istanbul</option>
-          <option>Antalya</option>
-        </select>
-        <select class="filter-select" id="dates-filter-month" aria-label="Filter by month">
-          <option value="">All Months</option>
-          <option>January</option><option>February</option><option>March</option>
-          <option>April</option><option>May</option><option>June</option>
-          <option>July</option><option>August</option><option>September</option>
-          <option>October</option><option>November</option><option>December</option>
-        </select>
-        <select class="filter-select" id="dates-filter-sector" aria-label="Filter by sector">
-          <option value="">All Sectors</option>
-          <option>School Education</option>
-          <option>VET</option>
-          <option>ADU</option>
-        </select>
-        <select class="filter-select" id="dates-filter-avail" aria-label="Filter by availability">
-          <option value="">All Availability</option>
-          <option>Available</option>
-          <option>Few Places Left</option>
-          <option>Fully Booked</option>
-          <option>Enquire</option>
-        </select>
-        <button class="filter-clear-btn" id="dates-clear">Clear all</button>
-        <div class="view-toggle">
-          <button class="view-btn active" id="view-list">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            List
-          </button>
-          <button class="view-btn" id="view-calendar">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Calendar
-          </button>
-        </div>
-        <span class="dates-count" id="dates-count" aria-live="polite"></span>
-      </div>
-    </div>
-
-    <!-- AVAILABILITY KEY -->
-    <div style="background:#fff;border-bottom:1px solid var(--color-light-grey);">
+    <section class="section-sm bg-white" style="text-align:center;">
       <div class="container">
-        <div class="availability-key">
-          <div class="avail-key-item"><div class="avail-dot available"></div> Available</div>
-          <div class="avail-key-item"><div class="avail-dot few"></div> Few Places Left</div>
-          <div class="avail-key-item"><div class="avail-dot full"></div> Fully Booked</div>
-          <div class="avail-key-item"><div class="avail-dot enquire"></div> Enquire</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DATES CONTENT -->
-    <section class="section bg-white" aria-label="Course dates">
-      <div class="container">
-
-        <!-- Loading state -->
-        <div class="dates-loading" id="dates-loading" aria-live="polite">
-          <div class="dates-loading-spinner" aria-hidden="true"></div>
-          <p>Loading course dates...</p>
-          <p style="font-size:0.8rem;margin-top:0.5rem;color:#9ca3af;">Fetching live data from our dates calendar</p>
-        </div>
-
-        <!-- List view -->
-        <div id="dates-list-view" style="display:none;" aria-label="Course dates list">
-          <table class="dates-table" aria-label="Upcoming course dates">
-            <thead>
-              <tr>
-                <th scope="col">Course</th>
-                <th scope="col">Destination</th>
-                <th scope="col">Dates</th>
-                <th scope="col">Availability</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody id="dates-tbody">
-              <!-- Populated by JavaScript from Google Sheets -->
-            </tbody>
-          </table>
-
-          <div class="dates-no-results" id="dates-no-results">
-            <h3 style="color:var(--color-navy);margin-bottom:0.75rem;">No sessions found for your search</h3>
-            <p style="color:#6b7280;max-width:480px;margin:0 auto 1.5rem;">Try adjusting your filters or clearing them to see all available dates. If you are looking for a session in a specific destination or time window that is not currently listed, contact our team and we will do our best to find a solution for your institution.</p>
-            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-              <button class="btn btn-outline-navy" id="dates-no-results-clear">Clear All Filters</button>
-              <a href="/sudenexus-nl/contact" class="btn btn-primary">Contact Our Team</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Calendar view placeholder -->
-        <div id="dates-calendar-view" style="display:none;">
-          <div class="img-placeholder" style="height:500px;border-radius:var(--radius-xl);">
-            <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span class="placeholder-label">Calendar view rendered by JavaScript in Phase 6</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- BESPOKE DATES -->
-    <section class="section bg-off-white" aria-labelledby="bespoke-heading">
-      <div class="container" style="max-width:700px;text-align:center;">
-        <div class="reveal">
-          <h2 id="bespoke-heading">Need Dates That Are Not Listed?</h2>
-          <p style="color:#4a5568;margin:1rem 0 2rem;">Not all of our course sessions are listed on this page. Many of our courses run on bespoke dates arranged directly with individual institutions and groups. If you need a course in a specific destination during a specific window that is not currently showing as available, get in touch. We will do everything we can to accommodate your institution's schedule.</p>
-          <a href="/sudenexus-nl/contact" class="btn btn-primary btn-lg">Contact Our Team</a>
+        <h2 style="margin-bottom:0.75rem;">Cannot Find the Right Date?</h2>
+        <p style="color:#4a5568;margin-bottom:1.5rem;">We can arrange dedicated group dates for your institution across any of our 13 destinations.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="/sudenexus-nl/contact" class="btn btn-primary btn-lg">Contact Us</a>
+          <a href="/sudenexus-nl/design-your-mobility" class="btn btn-secondary btn-lg">Design Your Mobility</a>
         </div>
       </div>
     </section>
-
-    <!-- ERASMUS+ PLANNING NOTE -->
-    <section class="section bg-white" aria-labelledby="planning-heading">
-      <div class="container" style="max-width:760px;">
-        <div class="erasmus-block reveal">
-          <h2 id="planning-heading" style="margin-bottom:1rem;">Planning Your Erasmus+ Mobility?</h2>
-          <p>Erasmus+ KA1 projects typically require mobility activities to take place within the project period defined in your grant agreement. When planning which course dates to book, make sure the session falls within your project period and that participants have enough lead time for preparation, travel arrangements and pre-departure activities.</p>
-          <p>If you are not yet sure of your project dates or are still in the application process, our team is happy to advise on how to factor course bookings into your planning timeline.</p>
-          <div style="margin-top:1.5rem;">
-            <a href="/sudenexus-nl/contact" class="btn btn-primary">Talk to Our Team</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-banner" aria-labelledby="dates-cta-heading">
-      <div class="container cta-banner-content">
-        <h2 id="dates-cta-heading" class="reveal">Ready to Book?</h2>
-        <p class="reveal reveal-delay-1">Found the dates you need? Contact our team to confirm availability and begin the booking process for your institution or group.</p>
-        <div class="cta-banner-actions reveal reveal-delay-2">
-          <a href="/sudenexus-nl/contact" class="btn btn-primary btn-lg">Contact Us to Book</a>
-          <a href="/sudenexus-nl/courses" class="btn btn-secondary btn-lg">Browse the Full Catalogue</a>
-        </div>
-      </div>
-    </section>
-
   </main>
-
   <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-col">
-          <div class="footer-logo"><img src="/sudenexus-nl/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="130" height="32"></div>
-          <p>Sude Nexus is a Netherlands-based Erasmus+ training organisation offering professional development courses for teachers and school staff across Europe and the Mediterranean.</p>
-          <a href="/sudenexus-nl/eu-framework" class="footer-eu-link">EU Framework Reference Hub</a>
-        </div>
-        <div class="footer-col">
-          <h4>Course Categories</h4>
-          <ul class="footer-links" role="list">
-            <li><a href="/sudenexus-nl/courses/digital-transformation-and-ai">Digital Transformation and AI</a></li>
-            <li><a href="/sudenexus-nl/courses/innovative-teaching-methods">Innovative Teaching Methods</a></li>
-            <li><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety">Inclusion, Wellbeing and School Safety</a></li>
-            <li><a href="/sudenexus-nl/courses/language-and-communication">Language and Communication</a></li>
-            <li><a href="/sudenexus-nl/courses/sustainability-and-global-citizenship">Sustainability and Global Citizenship</a></li>
-            <li><a href="/sudenexus-nl/courses/school-leadership-and-development">School Leadership and Development</a></li>
-            <li><a href="/sudenexus-nl/courses/pedagogy-and-early-childhood">Pedagogy and Early Childhood</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Quick Links</h4>
-          <ul class="footer-links" role="list">
-            <li><a href="/sudenexus-nl/find-your-course">Find Your Course</a></li>
-            <li><a href="/sudenexus-nl/dates">Course Dates</a></li>
-            <li><a href="/sudenexus-nl/locations">Our Locations</a></li>
-            <li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li>
-            <li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li>
-            <li><a href="/sudenexus-nl/design-your-mobility">Design Your Mobility</a></li>
-            <li><a href="/sudenexus-nl/contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <div class="footer-contact">
-            <p>Sude Nexus, The Netherlands</p>
-            <p><a href="mailto:info@sudenexus.com" style="color:rgba(255,255,255,0.6);">info@sudenexus.com</a></p>
-            <p>Monday to Friday, 9am to 6pm CET</p>
-          </div>
-        </div>
+        <div class="footer-col"><div class="footer-logo"><img src="/sudenexus-nl/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="130" height="32"></div><p>Sude Nexus is a Netherlands-based Erasmus+ training organisation.</p><a href="/sudenexus-nl/eu-framework" class="footer-eu-link">EU Framework Reference Hub</a></div>
+        <div class="footer-col"><h4>Course Categories</h4><ul class="footer-links" role="list"><li><a href="/sudenexus-nl/courses/digital-transformation-and-ai">Digital Transformation and AI</a></li><li><a href="/sudenexus-nl/courses/innovative-teaching-methods">Innovative Teaching Methods</a></li><li><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety">Inclusion, Wellbeing and School Safety</a></li><li><a href="/sudenexus-nl/courses/sustainability-and-global-citizenship">Sustainability and Global Citizenship</a></li><li><a href="/sudenexus-nl/courses/school-leadership-and-development">School Leadership and Development</a></li></ul></div>
+        <div class="footer-col"><h4>Quick Links</h4><ul class="footer-links" role="list"><li><a href="/sudenexus-nl/find-your-course">Find Your Course</a></li><li><a href="/sudenexus-nl/dates">Course Dates</a></li><li><a href="/sudenexus-nl/locations">Our Locations</a></li><li><a href="/sudenexus-nl/eu-framework">EU Framework Hub</a></li><li><a href="/sudenexus-nl/contact">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><div class="footer-contact"><p>Sude Nexus, The Netherlands</p><p><a href="mailto:info@sudenexus.com" style="color:rgba(255,255,255,0.6);">info@sudenexus.com</a></p><p>Monday to Friday, 9am to 6pm CET</p></div></div>
       </div>
       <div class="footer-bottom">
         <div class="footer-bottom-left">Organisation registered in the Netherlands | Erasmus+ accredited provider<br>Copyright 2026 Sude Nexus. All rights reserved.</div>
-        <div class="footer-bottom-right">
-          <a href="/sudenexus-nl/privacy">Privacy Policy</a>
-          <a href="/sudenexus-nl/privacy#cookies">Cookie Notice</a>
-          <a href="#" data-open-cookie-settings>Cookie Settings</a>
-        </div>
+        <div class="footer-bottom-right"><a href="/sudenexus-nl/privacy">Privacy Policy</a><a href="/sudenexus-nl/privacy#cookies">Cookie Notice</a><a href="#" data-open-cookie-settings>Cookie Settings</a></div>
       </div>
     </div>
   </footer>
-
-  <div class="cookie-banner" role="dialog" aria-label="Cookie consent">
-    <p>We use cookies to ensure the site works correctly and to understand how it is used. Read our <a href="/sudenexus-nl/privacy#cookies">Cookie Policy</a> for details.</p>
-    <div class="cookie-actions">
-      <button class="btn btn-secondary btn-sm" data-cookie-decline>Essential only</button>
-      <button class="btn btn-primary btn-sm" data-cookie-accept>Accept all</button>
-    </div>
-  </div>
-
+  <div class="cookie-banner" role="dialog" aria-label="Cookie consent"><p>We use cookies to ensure the site works correctly. Read our <a href="/sudenexus-nl/privacy#cookies">Cookie Policy</a>.</p><div class="cookie-actions"><button class="btn btn-secondary btn-sm" data-cookie-decline>Essential only</button><button class="btn btn-primary btn-sm" data-cookie-accept>Accept all</button></div></div>
   <script src="/sudenexus-nl/assets/js/main.js" defer></script>
+
   <script>
-  /*
-   * Dates page: Google Sheets integration
-   * Phase 6 will complete this with the real Google Sheets ID.
-   * For now, this scaffolding handles loading, rendering, filtering and view toggling.
-   *
-   * DEVELOPER NOTE (Phase 6):
-   * Replace SHEET_ID below with the published Google Sheet ID.
-   * The sheet must be published to web as CSV (File > Share > Publish to web > CSV).
-   * Column order: course_name, course_url, category, sector, location, start_date, end_date, availability
-   */
+  // ── Google Sheets CSV integration ────────────────────────────────────────
+  // HOW TO SET UP:
+  // 1. Create a Google Sheet with these column headers in row 1:
+  //    Course Name | Location | Start Date | End Date | Sector | Priority | Spaces | Course URL
+  // 2. File > Share > Publish to web > CSV > Sheet 1 > Publish
+  // 3. Copy the published URL and paste it below replacing YOUR_SHEET_CSV_URL
+  // 4. The site will update automatically every time you edit the spreadsheet.
+  //
+  // Date format in spreadsheet: DD/MM/YYYY (e.g. 15/09/2026)
+  // Sector values: school | vet | adu
+  // ─────────────────────────────────────────────────────────────────────────
 
-  (function() {
-    const SHEET_ID = 'YOUR_SHEET_ID'; // Replace in Phase 6
-    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/export?format=csv&gid=0';
+  const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL';
 
-    const loadingEl  = document.getElementById('dates-loading');
-    const listView   = document.getElementById('dates-list-view');
-    const calView    = document.getElementById('dates-calendar-view');
-    const tbody      = document.getElementById('dates-tbody');
-    const noResults  = document.getElementById('dates-no-results');
-    const countEl    = document.getElementById('dates-count');
-    const btnList    = document.getElementById('view-list');
-    const btnCal     = document.getElementById('view-calendar');
-    const clearBtn   = document.getElementById('dates-clear');
-    const nrClear    = document.getElementById('dates-no-results-clear');
+  const SECTOR_LABELS = { school: 'School Education', vet: 'VET Staff Training', adu: 'ADU Staff Training' };
+  const SECTOR_COLOURS = { school: '#1E3A5F', vet: '#C4621A', adu: '#2A6B7C' };
 
-    const catColours = {
-      'digital':       'var(--cat-digital)',
-      'teaching':      'var(--cat-teaching)',
-      'inclusion':     'var(--cat-inclusion)',
-      'language':      'var(--cat-language)',
-      'sustainability':'var(--cat-sustainability)',
-      'leadership':    'var(--cat-leadership)',
-      'pedagogy':      'var(--cat-pedagogy)',
-      'vet':           'var(--cat-vet)',
-      'adu':           'var(--cat-adu)'
-    };
+  let allDates = [];
 
-    let allRows = [];
-    let currentView = 'list';
+  function parseCSV(text) {
+    const rows = text.trim().split('\n');
+    const headers = rows[0].split(',').map(h => h.trim().replace(/"/g,''));
+    return rows.slice(1).map(row => {
+      const vals = row.split(',').map(v => v.trim().replace(/"/g,''));
+      const obj = {};
+      headers.forEach((h, i) => obj[h] = vals[i] || '');
+      return obj;
+    }).filter(r => r['Course Name'] && r['Start Date']);
+  }
 
-    function renderRows(rows) {
-      tbody.innerHTML = '';
-      if (rows.length === 0) {
-        noResults.classList.add('visible');
-        countEl.textContent = 'No sessions found';
-        return;
-      }
-      noResults.classList.remove('visible');
-      countEl.textContent = 'Showing ' + rows.length + ' session' + (rows.length !== 1 ? 's' : '');
+  function parseDate(str) {
+    const parts = str.split('/');
+    if (parts.length !== 3) return null;
+    return new Date(parseInt(parts[2]), parseInt(parts[1])-1, parseInt(parts[0]));
+  }
 
-      rows.forEach(function(row) {
-        const catColour = catColours[row.category] || 'var(--color-navy)';
-        const availClass = (row.availability || 'enquire').toLowerCase().replace(' ', '-').replace('few places left', 'few');
-        const sectorClass = (row.sector || 'school').toLowerCase();
+  function formatDateRange(start, end) {
+    const opts = { day: 'numeric', month: 'long', year: 'numeric' };
+    const s = parseDate(start);
+    const e = parseDate(end);
+    if (!s) return start;
+    if (!e) return s.toLocaleDateString('en-GB', opts);
+    if (s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) {
+      return s.getDate() + ' to ' + e.toLocaleDateString('en-GB', opts);
+    }
+    return s.toLocaleDateString('en-GB', opts) + ' to ' + e.toLocaleDateString('en-GB', opts);
+  }
 
-        const tr = document.createElement('tr');
-        tr.innerHTML =
-          '<td>' +
-            '<span class="cat-bar" style="background:' + catColour + ';" aria-hidden="true"></span>' +
-            '<span class="dates-course-name">' +
-              '<a href="/sudenexus-nl/' + (row.course_url || '#') + '">' + row.course_name + '</a>' +
-              '<span class="sector-pill ' + sectorClass + '">' + (row.sector || 'School') + '</span>' +
-            '</span>' +
-          '</td>' +
-          '<td>' + (row.location || '') + '</td>' +
-          '<td style="white-space:nowrap;">' + (row.start_date || '') + ' to ' + (row.end_date || '') + '</td>' +
-          '<td><span class="avail-badge ' + availClass + '">' + (row.availability || 'Enquire') + '</span></td>' +
-          '<td><a href="/sudenexus-nl/contact" class="btn btn-sm btn-primary" style="white-space:nowrap;">' +
-            (row.availability === 'Enquire' || row.availability === 'Fully Booked' ? 'Enquire' : 'Book Now') +
-          '</a></td>';
-        tbody.appendChild(tr);
-      });
+  function populateCourseFilter(dates) {
+    const sel = document.getElementById('filter-course');
+    const courses = [...new Set(dates.map(d => d['Course Name']))].sort();
+    courses.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c; o.textContent = c;
+      sel.appendChild(o);
+    });
+  }
+
+  function renderDates(dates) {
+    const grid = document.getElementById('dates-grid');
+    const count = document.getElementById('dates-count');
+    const noResults = document.getElementById('no-results');
+
+    if (dates.length === 0) {
+      grid.style.display = 'none';
+      noResults.style.display = 'block';
+      count.textContent = '';
+      return;
     }
 
-    function applyFilters() {
-      const course = document.getElementById('dates-filter-course').value;
-      const dest   = document.getElementById('dates-filter-destination').value;
-      const month  = document.getElementById('dates-filter-month').value;
-      const sector = document.getElementById('dates-filter-sector').value;
-      const avail  = document.getElementById('dates-filter-avail').value;
+    noResults.style.display = 'none';
+    grid.style.display = 'grid';
+    count.textContent = dates.length + (dates.length === 1 ? ' date available' : ' dates available');
 
-      const filtered = allRows.filter(function(row) {
-        const matchCourse = !course || row.course_name === course;
-        const matchDest   = !dest   || row.location === dest;
-        const matchSector = !sector || row.sector === sector;
-        const matchAvail  = !avail  || row.availability === avail;
-        const matchMonth  = !month  || (row.start_date && row.start_date.includes(month));
-        return matchCourse && matchDest && matchSector && matchAvail && matchMonth;
-      });
+    grid.innerHTML = dates.map(d => {
+      const sector = (d['Sector'] || 'school').toLowerCase();
+      const colour = SECTOR_COLOURS[sector] || SECTOR_COLOURS.school;
+      const label = SECTOR_LABELS[sector] || 'School Education';
+      const courseUrl = d['Course URL'] || '/sudenexus-nl/courses';
+      const spaces = d['Spaces'] ? d['Spaces'] + ' spaces' : '';
+      return `<article class="date-card" role="listitem">
+        <div class="date-card-header" style="background:${colour};">
+          <div class="date-card-dates">${formatDateRange(d['Start Date'], d['End Date'])}</div>
+          <div class="date-card-location">&#128205; ${d['Location']}</div>
+        </div>
+        <div class="date-card-body">
+          <div class="date-card-course">${d['Course Name']}</div>
+          <div class="date-card-meta">
+            <span class="date-badge" style="background:${colour}20;color:${colour};">${label}</span>
+            ${d['Priority'] ? '<span class="date-badge" style="background:#f3f4f6;color:#374151;">' + d['Priority'] + '</span>' : ''}
+            ${spaces ? '<span style="color:#16a34a;font-weight:600;">' + spaces + '</span>' : ''}
+          </div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <a href="${courseUrl}" class="btn btn-primary" style="font-size:0.8125rem;padding:0.4rem 0.9rem;">View Course</a>
+            <a href="/sudenexus-nl/contact?course=${encodeURIComponent(d['Course Name'])}&location=${encodeURIComponent(d['Location'])}&date=${encodeURIComponent(d['Start Date'])}" class="btn btn-secondary" style="font-size:0.8125rem;padding:0.4rem 0.9rem;">Book This Date</a>
+          </div>
+        </div>
+      </article>`;
+    }).join('');
+  }
 
-      renderRows(filtered);
-    }
+  function applyFilters() {
+    const course = document.getElementById('filter-course').value;
+    const location = document.getElementById('filter-location').value;
+    const month = document.getElementById('filter-month').value;
+    const sector = document.getElementById('filter-sector').value;
+    const today = new Date();
 
-    function clearAllFilters() {
-      ['dates-filter-course','dates-filter-destination','dates-filter-month','dates-filter-sector','dates-filter-avail']
-        .forEach(function(id) { document.getElementById(id).value = ''; });
-      renderRows(allRows);
-    }
-
-    function parseCSV(text) {
-      const lines = text.trim().split('\n');
-      if (lines.length < 2) return [];
-      const headers = lines[0].split(',').map(function(h) { return h.replace(/"/g,'').trim(); });
-      return lines.slice(1).map(function(line) {
-        const vals = line.split(',').map(function(v) { return v.replace(/"/g,'').trim(); });
-        const obj = {};
-        headers.forEach(function(h, i) { obj[h] = vals[i] || ''; });
-        return obj;
-      });
-    }
-
-    async function loadDates() {
-      // If no sheet ID is configured, show a placeholder message
-      if (SHEET_ID === 'YOUR_SHEET_ID') {
-        loadingEl.style.display = 'none';
-        listView.style.display = 'block';
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:3rem;color:#6b7280;">' +
-          '<strong style="display:block;color:var(--color-navy);margin-bottom:0.5rem;">Course dates coming soon</strong>' +
-          'Live course dates will appear here once the Google Sheets data source is connected in Phase 6. ' +
-          'Contact our team directly for current availability.' +
-          '</td></tr>';
-        countEl.textContent = '';
-        return;
-      }
-
-      try {
-        const response = await fetch(SHEET_URL);
-        const text = await response.text();
-        allRows = parseCSV(text);
-        loadingEl.style.display = 'none';
-        listView.style.display = 'block';
-        renderRows(allRows);
-      } catch (err) {
-        loadingEl.innerHTML = '<p style="color:var(--color-burgundy);">Unable to load course dates at this time. Please <a href="/sudenexus-nl/contact">contact us</a> for current availability.</p>';
-      }
-    }
-
-    // Event listeners
-    ['dates-filter-course','dates-filter-destination','dates-filter-month','dates-filter-sector','dates-filter-avail']
-      .forEach(function(id) { document.getElementById(id).addEventListener('change', applyFilters); });
-
-    if (clearBtn) clearBtn.addEventListener('click', clearAllFilters);
-    if (nrClear)  nrClear.addEventListener('click', clearAllFilters);
-
-    btnList.addEventListener('click', function() {
-      currentView = 'list';
-      btnList.classList.add('active');
-      btnCal.classList.remove('active');
-      listView.style.display = 'block';
-      calView.style.display = 'none';
+    let filtered = allDates.filter(d => {
+      const start = parseDate(d['Start Date']);
+      if (start && start < today) return false;
+      if (course && d['Course Name'] !== course) return false;
+      if (location && d['Location'] !== location) return false;
+      if (month && start && start.getMonth()+1 !== parseInt(month)) return false;
+      if (sector && (d['Sector']||'school').toLowerCase() !== sector) return false;
+      return true;
     });
 
-    btnCal.addEventListener('click', function() {
-      currentView = 'calendar';
-      btnCal.classList.add('active');
-      btnList.classList.remove('active');
-      listView.style.display = 'none';
-      calView.style.display = 'block';
+    filtered.sort((a,b) => {
+      const da = parseDate(a['Start Date']);
+      const db = parseDate(b['Start Date']);
+      return da - db;
     });
 
-    // Load on DOM ready
-    document.addEventListener('DOMContentLoaded', loadDates);
-  })();
+    renderDates(filtered);
+  }
+
+  async function loadDates() {
+    const loading = document.getElementById('loading');
+    const grid = document.getElementById('dates-grid');
+
+    if (SHEET_CSV_URL === 'YOUR_SHEET_CSV_URL') {
+      loading.innerHTML = '<p style="font-size:1rem;color:var(--color-navy);font-weight:600;">Course dates coming soon.</p><p style="margin-top:0.5rem;">Please <a href="/sudenexus-nl/contact">contact us</a> directly to check availability.</p>';
+      return;
+    }
+
+    try {
+      const res = await fetch(SHEET_CSV_URL);
+      const text = await res.text();
+      allDates = parseCSV(text);
+      loading.style.display = 'none';
+      populateCourseFilter(allDates);
+      applyFilters();
+    } catch (err) {
+      loading.innerHTML = '<p>Unable to load dates. Please <a href="/sudenexus-nl/contact">contact us</a> directly.</p>';
+    }
+  }
+
+  document.getElementById('filter-course').addEventListener('change', applyFilters);
+  document.getElementById('filter-location').addEventListener('change', applyFilters);
+  document.getElementById('filter-month').addEventListener('change', applyFilters);
+  document.getElementById('filter-sector').addEventListener('change', applyFilters);
+  document.getElementById('clear-filters').addEventListener('click', () => {
+    ['filter-course','filter-location','filter-month','filter-sector'].forEach(id => document.getElementById(id).value='');
+    applyFilters();
+  });
+
+  loadDates();
   </script>
 </body>
 </html>
