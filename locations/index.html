@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Locations | sudeNEXUS Learning</title>
+  <meta name="description" content="13 destinations across Europe and the Mediterranean. Amsterdam, Rotterdam, Bruges, Hamburg, Berlin, Vienna, Barcelona, Athens, Thessaloniki, Naples, Cappadocia, Istanbul and Antalya.">
+  <link rel="canonical" href="https://sudenexus.nl/locations">
+  <link rel="stylesheet" href="/sudenexus-nl/assets/css/main.css">
+  <link rel="icon" type="image/svg+xml" href="/sudenexus-nl/assets/images/1sudex-logo.svg">
+  <style>
+    .city-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 1100px) { .city-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 760px)  { .city-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px)  { .city-grid { grid-template-columns: 1fr; } }
+
+    .city-card {
+      display: block;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      text-decoration: none;
+      border: 1px solid var(--color-light-grey);
+      background: #fff;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+    .city-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .city-card-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .city-card-img img,
+    .city-card-img .img-placeholder {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .city-card-body {
+      padding: 1rem 1.25rem 1.25rem;
+    }
+    .city-card-country {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-burgundy);
+      margin-bottom: 0.25rem;
+    }
+    .city-card-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin-bottom: 0.4rem;
+    }
+    .city-card-tagline {
+      font-size: 0.8125rem;
+      color: #6b7280;
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+    .city-card-link {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-burgundy);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap var(--transition-fast);
+    }
+    .city-card:hover .city-card-link { gap: 8px; }
+
+    /* SVG map */
+    .map-container {
+      background: var(--color-off-white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--color-light-grey);
+    }
+  </style>
+</head>
+<body class="page-body">
+
+  <!-- NAVIGATION -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/sudenexus-nl/" class="nav-logo" aria-label="sudeNEXUS Learning home">
+        <img src="/sudenexus-nl/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="140" height="36">
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/sudenexus-nl/about">About Us</a></li>
+        <li class="nav-dropdown">
+          <a href="/sudenexus-nl/courses">Courses</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="/sudenexus-nl/courses">Course Catalogue</a></li>
+            <li><a href="/sudenexus-nl/find-your-course">Find Your Course</a></li>
+            <li><a href="/sudenexus-nl/dates">Course Dates</a></li>
+            <div class="dropdown-divider"></div>
+            <li><a href="/sudenexus-nl/courses/digital-transformation-and-ai">Digital Transformation and AI</a></li>
+            <li><a href="/sudenexus-nl/courses/innovative-teaching-methods">Innovative Teaching Methods</a></li>
+            <li><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety">Inclusion, Wellbeing and School Safety</a></li>
+            <li><a href="/sudenexus-nl/courses/language-and-communication">Language and Communication</a></li>
+            <li><a href="/sudenexus-nl/courses/sustainability-and-global-citizenship">Sustainability and Global Citizenship</a></li>
+            <li><a href="/sudenexus-nl/courses/school-leadership-and-development">School Leadership and Development</a></li>
+            <li><a href="/sudenexus-nl/courses/pedagogy-and-early-childhood">Pedagogy and Early Childhood</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <a href="/sudenexus-nl/locations" class="active">Locations</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="/sudenexus-nl/locations">All Destinations</a></li>
+            <div class="dropdown-divider"></div>
+            <li><a href="/sudenexus-nl/locations/amsterdam">Amsterdam</a></li>
+            <li><a href="/sudenexus-nl/locations/rotterdam">Rotterdam</a></li>
+            <li><a href="/sudenexus-nl/locations/bruges">Bruges</a></li>
+            <li><a href="/sudenexus-nl/locations/hamburg">Hamburg</a></li>
+            <li><a href="/sudenexus-nl/locations/berlin">Berlin</a></li>
+            <li><a href="/sudenexus-nl/locations/vienna">Vienna</a></li>
+            <li><a href="/sudenexus-nl/locations/barcelona">Barcelona</a></li>
+            <li><a href="/sudenexus-nl/locations/athens">Athens</a></li>
+            <li><a href="/sudenexus-nl/locations/thessaloniki">Thessaloniki</a></li>
+            <li><a href="/sudenexus-nl/locations/naples">Naples</a></li>
+            <li><a href="/sudenexus-nl/locations/cappadocia">Cappadocia</a></li>
+            <li><a href="/sudenexus-nl/locations/istanbul">Istanbul</a></li>
+            <li><a href="/sudenexus-nl/locations/antalya">Antalya</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <a href="/sudenexus-nl/vet-mobility">VET and ADU</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li>
+            <li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li>
+          </ul>
+        </li>
+        <li><a href="/sudenexus-nl/services">Services</a></li>
+        <li><a href="/sudenexus-nl/design-your-mobility">Design Your Mobility</a></li>
+      </ul>
+      <a href="/sudenexus-nl/contact" class="nav-cta">Get in Touch</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" aria-label="Mobile navigation">
+    <ul class="nav-mobile-links" role="list">
+      <li><a href="/sudenexus-nl/about">About Us</a></li>
+      <li><a href="/sudenexus-nl/courses">Courses</a></li>
+      <li><a href="/sudenexus-nl/locations">Locations</a></li>
+      <li><a href="/sudenexus-nl/vet-mobility">VET Mobility</a></li>
+      <li><a href="/sudenexus-nl/adu-mobility">ADU Mobility</a></li>
+      <li><a href="/sudenexus-nl/services">Services</a></li>
+      <li><a href="/sudenexus-nl/design-your-mobility">Design Your Mobility</a></li>
+      <li><a href="/sudenexus-nl/contact">Contact Us</a></li>
+    </ul>
+  </div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="page-hero">
+      <div class="container page-hero-content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/sudenexus-nl/">Home</a><span aria-hidden="true">›</span>
+          <span class="current">Locations</span>
+        </nav>
+        <h1>Our Locations</h1>
+        <p>13 destinations across Europe and the Mediterranean. Choose the city that inspires you.</p>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="section bg-off-white" aria-labelledby="locations-intro-heading">
+      <div class="container" style="max-width:860px;">
+        <div class="reveal">
+          <h2 id="locations-intro-heading">Where Will You Learn Next?</h2>
+          <div style="height:3px;width:48px;background:var(--color-burgundy);margin:1.25rem 0 1.5rem;border-radius:2px;" aria-hidden="true"></div>
+          <p class="text-lead">At Sude Nexus we believe that where you learn is as important as what you learn. That is why we have built a network of 13 carefully chosen destinations across Europe and the Mediterranean, each offering a unique combination of professional training quality, cultural richness and genuine inspiration.</p>
+          <p>From the canal-lined streets of Amsterdam and Bruges to the sun-drenched Mediterranean shores of Barcelona, Athens and Antalya, from the dynamic energy of Berlin and Hamburg to the ancient crossroads of Istanbul and the classical heritage of Naples and Athens, every Sude Nexus destination adds something distinctive to the professional development experience.</p>
+          <p>All 13 locations offer fully equipped professional training facilities, a rich cultural and social programme, and the full support of our local coordination team. Your Erasmus+ grant covers your course fee, travel, accommodation and subsistence. All you need to do is choose your destination.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CITY GRID -->
+    <section class="section bg-white" aria-labelledby="city-grid-heading">
+      <div class="container">
+        <h2 id="city-grid-heading" class="visually-hidden">All Destinations</h2>
+        <div class="city-grid">
+
+          <a href="/sudenexus-nl/locations/amsterdam" class="city-card reveal">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-amsterdam-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Netherlands</div>
+              <div class="city-card-name">Amsterdam</div>
+              <div class="city-card-tagline">Train at the heart of European innovation.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/rotterdam" class="city-card reveal reveal-delay-1">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-rotterdam-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Netherlands</div>
+              <div class="city-card-name">Rotterdam</div>
+              <div class="city-card-tagline">Architecture, ambition and a city always looking forward.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/bruges" class="city-card reveal reveal-delay-2">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-bruges-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Belgium</div>
+              <div class="city-card-name">Bruges</div>
+              <div class="city-card-tagline">A medieval masterpiece at the heart of Western Europe.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/hamburg" class="city-card reveal reveal-delay-3">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-hamburg-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Germany</div>
+              <div class="city-card-name">Hamburg</div>
+              <div class="city-card-tagline">A global port city with a bold and creative spirit.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/berlin" class="city-card reveal">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-berlin-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Germany</div>
+              <div class="city-card-name">Berlin</div>
+              <div class="city-card-tagline">History, reinvention and one of Europe's most dynamic cultural scenes.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/vienna" class="city-card reveal reveal-delay-1">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-vienna-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Austria</div>
+              <div class="city-card-name">Vienna</div>
+              <div class="city-card-tagline">Imperial elegance meets contemporary European thinking.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/barcelona" class="city-card reveal reveal-delay-2">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-barcelona-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Spain</div>
+              <div class="city-card-name">Barcelona</div>
+              <div class="city-card-tagline">Where creativity and education meet the Mediterranean.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/athens" class="city-card reveal reveal-delay-3">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-athens-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Greece</div>
+              <div class="city-card-name">Athens</div>
+              <div class="city-card-tagline">The cradle of Western civilisation and a city reborn.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/thessaloniki" class="city-card reveal">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-thessaloniki-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Greece</div>
+              <div class="city-card-name">Thessaloniki</div>
+              <div class="city-card-tagline">A vibrant northern Greek city rich in history and culture.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/naples" class="city-card reveal reveal-delay-1">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-naples-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Italy</div>
+              <div class="city-card-name">Naples</div>
+              <div class="city-card-tagline">Passionate, historic and one of Europe's most authentic cities.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/cappadocia" class="city-card reveal reveal-delay-2">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-cappadocia-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Turkey</div>
+              <div class="city-card-name">Cappadocia</div>
+              <div class="city-card-tagline">One of the world's most extraordinary landscapes. An unforgettable setting for professional growth.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/istanbul" class="city-card reveal reveal-delay-3">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-istanbul-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Turkey</div>
+              <div class="city-card-name">Istanbul</div>
+              <div class="city-card-tagline">Where two continents meet in one extraordinary city.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+          <a href="/sudenexus-nl/locations/antalya" class="city-card reveal">
+            <div class="city-card-img">
+              <div class="img-placeholder" style="height:100%;"><svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="placeholder-label">location-antalya-hero.jpg</span></div>
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Turkey</div>
+              <div class="city-card-name">Antalya</div>
+              <div class="city-card-tagline">Where the Mediterranean meets ancient history and natural wonder.</div>
+              <span class="city-card-link">Discover More <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY OUR LOCATIONS MATTER -->
+    <section class="section bg-navy" aria-labelledby="why-locations-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="why-locations-heading" style="color:#fff;">More Than a Backdrop</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="reveal" style="text-align:center;padding:1.5rem;">
+            <div style="width:52px;height:52px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 style="color:#fff;font-size:1rem;margin-bottom:0.75rem;">Carefully Chosen</h3>
+            <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">Every city in our network has been selected because it adds genuine value to the professional development experience. Rich history, cultural diversity, natural beauty, architectural significance and educational tradition are among the qualities we look for in every destination.</p>
+          </div>
+          <div class="reveal reveal-delay-1" style="text-align:center;padding:1.5rem;">
+            <div style="width:52px;height:52px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 style="color:#fff;font-size:1rem;margin-bottom:0.75rem;">Fully Supported</h3>
+            <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">In every location we work with experienced local coordinators, trusted training facilities and knowledgeable cultural guides. Our participants never feel alone in an unfamiliar city. From arrival to departure, our local teams are on hand to make every experience smooth and memorable.</p>
+          </div>
+          <div class="reveal reveal-delay-2" style="text-align:center;padding:1.5rem;">
+            <div style="width:52px;height:52px;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <h3 style="color:#fff;font-size:1rem;margin-bottom:0.75rem;">Erasmus+ Budget Friendly</h3>
+            <p style="color:rgba(255,255,255,0.7);font-size:0.9rem;">All 13 destinations are accessible by direct flights from most European countries and offer accommodation options at a range of price points. We provide detailed budget guidance for every location so that coordinators can plan their Erasmus+ grant allocation with confidence.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP SECTION -->
+    <section class="section bg-off-white" aria-labelledby="map-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="map-heading">Find Your Destination</h2>
+        </div>
+        <!-- Destination map placeholder: custom SVG map built in Phase 4 per Visual Assets Guide B6 -->
+        <div class="map-container reveal">
+          <div class="img-placeholder" style="height:420px;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="opacity:0.3;color:var(--color-navy);">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            <span class="placeholder-label">Interactive destination map with 13 city pins</span>
+            <span style="font-size:0.75rem;color:var(--color-navy);opacity:0.4;margin-top:0.5rem;">Custom SVG map added in Phase 4</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HELP DECIDE -->
+    <section class="section bg-white" aria-labelledby="help-decide-heading">
+      <div class="container" style="max-width:700px;text-align:center;">
+        <div class="reveal">
+          <h2 id="help-decide-heading">Let Us Help You Decide</h2>
+          <p style="color:#4a5568;margin:1rem 0 2rem;">Choosing the right destination for your Erasmus+ mobility depends on many factors: your course topic, your grant budget, your travel connections and of course the personal preferences of your participants. Our team is happy to advise on which destination works best for your specific situation.</p>
+          <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+            <a href="/sudenexus-nl/contact" class="btn btn-primary btn-lg">Ask Our Team</a>
+            <a href="/sudenexus-nl/courses" class="btn btn-outline-navy btn-lg">Browse Courses</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner" aria-labelledby="locations-cta-heading">
+      <div class="container cta-banner-content">
+        <h2 id="locations-cta-heading" class="reveal">Ready to Choose Your Destination?</h2>
+        <p class="reveal reveal-delay-1">Browse our 32 courses and find the perfect combination of topic and city for your Erasmus+ mobility.</p>
+        <div class="cta-banner-actions reveal reveal-delay-2">
+          <a href="/sudenexus-nl/courses" class="btn btn-primary btn-lg">Explore Courses</a>
+          <a href="/sudenexus-nl/dates" class="btn btn-secondary btn-lg">View Course Dates</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo"><img src="/sudenexus-nl/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="130" height="32"></div>
+          <p>Sude Nexus is a Netherlands-based Erasmus+ training organisation offering professional development courses for teachers and school staff across Europe and the Mediterranean.</p>
+          <a href="/sudenexus-nl/eu-framework" class="footer-eu-link">EU Framework Reference Hub</a>
+        </div>
+        <div class="footer-col">
+          <h4>Erasmus Training Courses</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="/sudenexus-nl/courses/digital-transformation-and-ai">Digital Transformation and AI</a></li>
+            <li><a href="/sudenexus-nl/courses/innovative-teaching-methods">Innovative Teaching Methods</a></li>
+            <li><a href="/sudenexus-nl/courses/inclusion-wellbeing-and-school-safety">Inclusion, Wellbeing and School Safety</a></li>
+            <li><a href="/sudenexus-nl/courses/language-and-communication">Language and Communication</a></li>
+            <li><a href="/sudenexus-nl/courses/sustainability-and-global-citizenship">Sustainability and Global Citizenship</a></li>
+            <li><a href="/sudenexus-nl/courses/school-leadership-and-development">School Leadership and Development</a></li>
+            <li><a href="/sudenexus-nl/courses/pedagogy-and-early-childhood">Pedagogy and Early Childhood</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Our Destinations</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="/sudenexus-nl/locations/amsterdam">Amsterdam</a></li>
+            <li><a href="/sudenexus-nl/locations/rotterdam">Rotterdam</a></li>
+            <li><a href="/sudenexus-nl/locations/bruges">Bruges</a></li>
+            <li><a href="/sudenexus-nl/locations/hamburg">Hamburg</a></li>
+            <li><a href="/sudenexus-nl/locations/berlin">Berlin</a></li>
+            <li><a href="/sudenexus-nl/locations/vienna">Vienna</a></li>
+            <li><a href="/sudenexus-nl/locations/barcelona">Barcelona</a></li>
+            <li><a href="/sudenexus-nl/locations/athens">Athens</a></li>
+            <li><a href="/sudenexus-nl/locations/istanbul">Istanbul</a></li>
+            <li><a href="/sudenexus-nl/locations/cappadocia">Cappadocia</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact">
+            <p>Sude Nexus, The Netherlands</p>
+            <p><a href="mailto:info@sudenexus.com" style="color:rgba(255,255,255,0.6);">info@sudenexus.com</a></p>
+            <p>Monday to Friday, 9am to 6pm CET</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">Organisation registered in the Netherlands | Erasmus+ accredited provider<br>Copyright 2026 Sude Nexus. All rights reserved.</div>
+        <div class="footer-bottom-right">
+          <a href="/sudenexus-nl/privacy">Privacy Policy</a>
+          <a href="/sudenexus-nl/privacy#cookies">Cookie Notice</a>
+          <a href="#" data-open-cookie-settings>Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" role="dialog" aria-label="Cookie consent">
+    <p>We use cookies to ensure the site works correctly and to understand how it is used. Read our <a href="/sudenexus-nl/privacy#cookies">Cookie Policy</a> for details.</p>
+    <div class="cookie-actions">
+      <button class="btn btn-secondary btn-sm" data-cookie-decline>Essential only</button>
+      <button class="btn btn-primary btn-sm" data-cookie-accept>Accept all</button>
+    </div>
+  </div>
+
+  <script src="/sudenexus-nl/assets/js/main.js" defer></script>
+</body>
+</html>
