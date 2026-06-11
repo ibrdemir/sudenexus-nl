@@ -145,7 +145,7 @@
   // Sector values: school | vet | adu
   // ─────────────────────────────────────────────────────────────────────────
 
-  const SHEET_CSV_URL = 'YOUR_SHEET_CSV_URL';
+  const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR8IrCNFxi2fJUXLci9To_I5XWKXY_r70ZRvW2nePiFGPC3Yy2-l5zsTZvyCaOZRA7aHthymXJF2nnS/pub?gid=0&single=true&output=csv';
 
   const SECTOR_LABELS = { school: 'School Education', vet: 'VET Staff Training', adu: 'ADU Staff Training' };
   const SECTOR_COLOURS = { school: '#1E3A5F', vet: '#C4621A', adu: '#2A6B7C' };
@@ -264,7 +264,7 @@
     const loading = document.getElementById('loading');
     const grid = document.getElementById('dates-grid');
 
-    if (SHEET_CSV_URL === 'YOUR_SHEET_CSV_URL') {
+    if (SHEET_CSV_URL === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR8IrCNFxi2fJUXLci9To_I5XWKXY_r70ZRvW2nePiFGPC3Yy2-l5zsTZvyCaOZRA7aHthymXJF2nnS/pub?gid=0&single=true&output=csv') {
       loading.innerHTML = '<p style="font-size:1rem;color:var(--color-navy);font-weight:600;">Course dates coming soon.</p><p style="margin-top:0.5rem;">Please <a href="/contact">contact us</a> directly to check availability.</p>';
       return;
     }
