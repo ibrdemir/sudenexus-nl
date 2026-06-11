@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Your Mobility | sudeNEXUS Learning</title>
+  <meta name="description" content="Bespoke Erasmus+ mobility programmes designed specifically for your institution. Training courses, group mobility weeks, job shadowing, learner internships and multi-destination projects.">
+  <link rel="canonical" href="https://sudenexus.nl/design-your-mobility">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/1sudex-logo.svg">
+  <style>
+    .dym-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem; }
+    @media(max-width:900px){ .dym-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:580px){ .dym-grid{grid-template-columns:1fr;} }
+    .profile-card {
+      background:#fff;
+      border:1px solid var(--color-light-grey);
+      border-radius:var(--radius-xl);
+      padding:1.75rem;
+      position:relative;
+    }
+    .profile-card::before {
+      content:'';
+      position:absolute;
+      top:0;left:0;right:0;
+      height:3px;
+      background:var(--color-burgundy);
+      border-radius:var(--radius-xl) var(--radius-xl) 0 0;
+    }
+    .checkbox-grid-3 {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:0.5rem;
+    }
+    @media(max-width:700px){ .checkbox-grid-3{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:440px){ .checkbox-grid-3{grid-template-columns:1fr;} }
+    .checkbox-option {
+      display:flex;align-items:center;gap:0.5rem;
+      padding:0.6rem 0.75rem;
+      border:1.5px solid var(--color-light-grey);
+      border-radius:var(--radius-md);
+      cursor:pointer;
+      transition:border-color 150ms ease,background 150ms ease;
+      font-size:0.875rem;
+    }
+    .checkbox-option:has(input:checked){
+      border-color:var(--color-navy);
+      background:rgba(30,58,95,0.04);
+    }
+    .checkbox-option input{accent-color:var(--color-navy);}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    @media(max-width:640px){.form-row{grid-template-columns:1fr;}}
+    .form-section-title{
+      font-size:0.75rem;font-weight:700;letter-spacing:0.08em;
+      text-transform:uppercase;color:var(--color-navy);
+      margin:2rem 0 1rem;padding-bottom:0.5rem;
+      border-bottom:2px solid var(--color-light-grey);
+    }
+  </style>
+</head>
+<body class="page-body">
+
+  <!-- NAVIGATION -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo" aria-label="sudeNEXUS Learning home">
+        <img src="/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="140" height="36">
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/about">About Us</a></li>
+        <li class="nav-dropdown">
+          <a href="/courses">Courses</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="/courses">Course Catalogue</a></li>
+            <li><a href="/find-your-course">Find Your Course</a></li>
+            <li><a href="/dates">Course Dates</a></li>
+            <div class="dropdown-divider" role="separator"></div>
+            <li><a href="/courses/digital-transformation-and-ai">Digital Transformation and AI</a></li>
+            <li><a href="/courses/innovative-teaching-methods">Innovative Teaching Methods</a></li>
+            <li><a href="/courses/inclusion-wellbeing-and-school-safety">Inclusion, Wellbeing and School Safety</a></li>
+            <li><a href="/courses/language-and-communication">Language and Communication</a></li>
+            <li><a href="/courses/sustainability-and-global-citizenship">Sustainability and Global Citizenship</a></li>
+            <li><a href="/courses/school-leadership-and-development">School Leadership and Development</a></li>
+            <li><a href="/courses/pedagogy-and-early-childhood">Pedagogy and Early Childhood</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <a href="/locations">Locations</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="/locations">All Destinations</a></li>
+            <div class="dropdown-divider" role="separator"></div>
+            <li><a href="/locations/amsterdam">Amsterdam</a></li>
+            <li><a href="/locations/rotterdam">Rotterdam</a></li>
+            <li><a href="/locations/bruges">Bruges</a></li>
+            <li><a href="/locations/hamburg">Hamburg</a></li>
+            <li><a href="/locations/berlin">Berlin</a></li>
+            <li><a href="/locations/vienna">Vienna</a></li>
+            <li><a href="/locations/barcelona">Barcelona</a></li>
+            <li><a href="/locations/athens">Athens</a></li>
+            <li><a href="/locations/thessaloniki">Thessaloniki</a></li>
+            <li><a href="/locations/naples">Naples</a></li>
+            <li><a href="/locations/cappadocia">Cappadocia</a></li>
+            <li><a href="/locations/istanbul">Istanbul</a></li>
+            <li><a href="/locations/antalya">Antalya</a></li>
+          </ul>
+        </li>
+        <li class="nav-dropdown">
+          <a href="/vet-mobility">VET and ADU</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="/vet-mobility">VET Mobility</a></li>
+            <li><a href="/adu-mobility">ADU Mobility</a></li>
+          </ul>
+        </li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/design-your-mobility" class="active">Design Your Mobility</a></li>
+      </ul>
+      <a href="/contact" class="nav-cta">Get in Touch</a>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile" aria-label="Mobile navigation">
+    <ul class="nav-mobile-links" role="list">
+      <li><a href="/about">About Us</a></li>
+      <li><a href="/courses">Courses</a></li>
+      <li><a href="/locations">Locations</a></li>
+      <li><a href="/vet-mobility">VET Mobility</a></li>
+      <li><a href="/adu-mobility">ADU Mobility</a></li>
+      <li><a href="/services">Services</a></li>
+      <li><a href="/design-your-mobility">Design Your Mobility</a></li>
+      <li><a href="/contact">Contact Us</a></li>
+    </ul>
+  </div>
+
+  <main>
+
+    <!-- SECTION 1: PAGE HERO -->
+    <section class="page-hero" style="background:linear-gradient(135deg,#0b1424 0%,#1E3A5F 60%,#2a1520 100%);">
+      <div class="container page-hero-content" style="text-align:center;max-width:700px;margin:0 auto;">
+        <nav class="breadcrumb" aria-label="Breadcrumb" style="justify-content:center;">
+          <a href="/">Home</a>
+          <span aria-hidden="true">›</span>
+          <span class="current">Design Your Mobility</span>
+        </nav>
+        <h1>Design Your Mobility</h1>
+        <p style="margin-bottom:2rem;">Your institution is unique. Your Erasmus+ programme should be too.</p>
+        <a href="#dym-form" class="btn btn-primary btn-lg">Start the Conversation</a>
+      </div>
+    </section>
+
+    <!-- Design mobility image placeholder -->
+    <div style="background:var(--color-off-white);">
+      <div class="container" style="padding-top:3rem;padding-bottom:0;">
+        <img src="/assets/images/design-mobility-01.jpg" alt="Design Mobility 01" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius-xl);" loading="lazy">
+      </div>
+    </div>
+
+    <!-- SECTION 2: OPENING STATEMENT -->
+    <section class="section bg-off-white" aria-labelledby="dym-intro-heading">
+      <div class="container" style="max-width:860px;">
+        <div class="reveal">
+          <h2 id="dym-intro-heading">Not Everything Fits in a Catalogue</h2>
+          <div style="height:3px;width:48px;background:var(--color-burgundy);margin:1.25rem 0 1.5rem;border-radius:2px;" aria-hidden="true"></div>
+          <p class="text-lead">A course catalogue is a starting point, not a limit. At Sude Nexus we know that every school, VET institution and adult education organisation has its own goals, its own culture, its own participants and its own Erasmus+ story. Sometimes a ready-made course is exactly what you need. And sometimes what you need is something that does not exist yet.</p>
+          <p>That is where Design Your Mobility comes in.</p>
+          <p>With over 11 years of experience in Erasmus+ project management and professional development across school education, VET and adult learning, we have the knowledge, the network and the creativity to design mobility programmes, training courses, job shadowing placements and learner exchange projects that fit your institution precisely.</p>
+          <p style="font-weight:600;color:var(--color-navy);">Tell us what you need. We will build it with you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: WHAT WE CAN CREATE TOGETHER -->
+    <section class="section bg-white" aria-labelledby="create-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="create-heading">What We Can Create Together</h2>
+        </div>
+        <div class="dym-grid">
+          <div class="profile-card reveal">
+            <div style="width:40px;height:40px;background:rgba(139,26,46,0.08);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-burgundy)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">Bespoke Training Courses</h3>
+            <p style="color:#4a5568;font-size:0.9rem;margin:0;">A topic not in our catalogue, a combination of topics, a course designed specifically for your staff profile. We design professional development training from the ground up.</p>
+          </div>
+          <div class="profile-card reveal reveal-delay-1">
+            <div style="width:40px;height:40px;background:rgba(139,26,46,0.08);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-burgundy)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">Dedicated Group Mobility Weeks</h3>
+            <p style="color:#4a5568;font-size:0.9rem;margin:0;">A full mobility week designed exclusively for your institution's staff. Your topic, your destination, your dates, your group. We handle everything from programme design to logistics and documentation.</p>
+          </div>
+          <div class="profile-card reveal reveal-delay-2">
+            <div style="width:40px;height:40px;background:rgba(139,26,46,0.08);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-burgundy)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">Job Shadowing Programmes</h3>
+            <p style="color:#4a5568;font-size:0.9rem;margin:0;">We arrange job shadowing placements for education professionals who want to observe and learn from a partner institution in one of our 13 destinations or beyond.</p>
+          </div>
+          <div class="profile-card reveal">
+            <div style="width:40px;height:40px;background:rgba(139,26,46,0.08);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-burgundy)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">Learner Internships and Exchanges</h3>
+            <p style="color:#4a5568;font-size:0.9rem;margin:0;">For VET institutions and adult education organisations arranging learner mobility. We support partner matching, placement coordination, participant preparation and all Erasmus+ administrative requirements.</p>
+          </div>
+          <div class="profile-card reveal reveal-delay-1">
+            <div style="width:40px;height:40px;background:rgba(139,26,46,0.08);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-burgundy)" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">Multi-Destination Mobility Projects</h3>
+            <p style="color:#4a5568;font-size:0.9rem;margin:0;">Planning a mobility project that takes different groups to different destinations across the year? We coordinate multi-destination projects from a single point of contact.</p>
+          </div>
+          <div class="profile-card reveal reveal-delay-2">
+            <div style="width:40px;height:40px;background:rgba(139,26,46,0.08);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-burgundy)" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">Combined Training and Cultural Immersion</h3>
+            <p style="color:#4a5568;font-size:0.9rem;margin:0;">A programme that combines structured professional development with an intensive cultural experience in one of our most distinctive destinations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: THIS SERVICE IS FOR YOU IF -->
+    <section class="section bg-navy" aria-labelledby="for-you-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="for-you-heading" style="color:#fff;">This Service Is For You If</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="reveal" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-xl);padding:2rem;">
+            <div style="width:36px;height:36px;background:var(--color-burgundy);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-weight:700;color:#fff;font-size:0.875rem;" aria-hidden="true">1</div>
+            <p style="color:#fff;font-weight:600;font-size:0.9375rem;margin-bottom:0.5rem;">You have specific goals that our standard catalogue does not fully address.</p>
+            <p style="color:rgba(255,255,255,0.65);font-size:0.875rem;margin:0;">Your Erasmus+ plan has particular priorities, your staff have specific development needs, or your national agency has recommended a focus area that requires a tailored approach.</p>
+          </div>
+          <div class="reveal reveal-delay-1" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-xl);padding:2rem;">
+            <div style="width:36px;height:36px;background:var(--color-burgundy);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-weight:700;color:#fff;font-size:0.875rem;" aria-hidden="true">2</div>
+            <p style="color:#fff;font-weight:600;font-size:0.9375rem;margin-bottom:0.5rem;">You want your whole staff group to experience something together.</p>
+            <p style="color:rgba(255,255,255,0.65);font-size:0.875rem;margin:0;">Rather than sending individual teachers to open courses, you want a dedicated mobility week for your own team, in a destination you choose, with content designed specifically for your school culture and development plan.</p>
+          </div>
+          <div class="reveal reveal-delay-2" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-xl);padding:2rem;">
+            <div style="width:36px;height:36px;background:var(--color-burgundy);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-weight:700;color:#fff;font-size:0.875rem;" aria-hidden="true">3</div>
+            <p style="color:#fff;font-weight:600;font-size:0.9375rem;margin-bottom:0.5rem;">You are working in VET or adult education and need specialist support.</p>
+            <p style="color:rgba(255,255,255,0.65);font-size:0.875rem;margin:0;">VET learner internships, adult education staff exchanges and job shadowing placements have specific requirements. We know these sectors deeply and design for them with the same quality as our school education programmes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: HOW THE DESIGN PROCESS WORKS -->
+    <section class="section bg-off-white" aria-labelledby="process-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="process-heading">How the Design Process Works</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;position:relative;">
+          <div class="step reveal">
+            <div class="step-number" aria-hidden="true">1</div>
+            <h3>Tell Us What You Need</h3>
+            <p>Use the form below or contact us directly to tell us about your institution, your Erasmus+ project, your participants and what you are trying to achieve. There is no obligation at this stage. We are simply listening.</p>
+          </div>
+          <div class="step reveal reveal-delay-1">
+            <div class="step-number" aria-hidden="true">2</div>
+            <h3>We Listen and Explore</h3>
+            <p>A member of our team will get back to you within one working day. We take time to understand before we recommend. This is where the real design work begins.</p>
+          </div>
+          <div class="step reveal reveal-delay-2">
+            <div class="step-number" aria-hidden="true">3</div>
+            <h3>We Develop a Proposal</h3>
+            <p>Based on our conversation we develop a clear, detailed and costed proposal. You review it, we refine it together until it is exactly right.</p>
+          </div>
+          <div class="step reveal reveal-delay-3">
+            <div class="step-number" aria-hidden="true">4</div>
+            <h3>We Deliver and Support</h3>
+            <p>Once confirmed we handle everything: programme delivery, local coordination, participant support, cultural programme and complete documentation for your Erasmus+ reporting.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: DESIGN YOUR MOBILITY FORM -->
+    <section class="section bg-white" id="dym-form" aria-labelledby="dym-form-heading">
+      <div class="container" style="max-width:860px;">
+        <div class="section-header reveal" style="text-align:left;margin-bottom:2rem;">
+          <h2 id="dym-form-heading">Tell Us About Your Project</h2>
+          <p>All fields marked with an asterisk are required.</p>
+        </div>
+
+        <!--
+          DEVELOPER NOTE (Phase 2):
+          Replace ACTION_URL with your Formspree endpoint for the Design Your Mobility form.
+          This should be a separate Formspree form from the contact form.
+        -->
+        <form action="ACTION_URL" method="POST" class="reveal" novalidate aria-label="Design Your Mobility form">
+          <input type="hidden" name="_subject" value="Design Your Mobility enquiry from sudenexus.nl">
+          <input type="hidden" name="_next" value="https://sudenexus.nl/design-your-mobility?sent=true">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+          <div class="form-section-title">Your Details</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="dym-first">First Name <span class="required">*</span></label>
+              <input class="form-input" type="text" id="dym-first" name="first_name" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="dym-last">Last Name <span class="required">*</span></label>
+              <input class="form-input" type="text" id="dym-last" name="last_name" required autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="dym-email">Email Address <span class="required">*</span></label>
+              <input class="form-input" type="email" id="dym-email" name="email" required autocomplete="email">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="dym-phone">Phone Number</label>
+              <input class="form-input" type="tel" id="dym-phone" name="phone" autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="form-section-title">Your Institution</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="dym-institution">Institution Name <span class="required">*</span></label>
+              <input class="form-input" type="text" id="dym-institution" name="institution_name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="dym-country">Country <span class="required">*</span></label>
+              <select class="form-input" id="dym-country" name="country" required>
+                <option value="" disabled selected>Select your country</option>
+                <option>Austria</option><option>Belgium</option><option>Bulgaria</option>
+                <option>Croatia</option><option>Cyprus</option><option>Czech Republic</option>
+                <option>Denmark</option><option>Estonia</option><option>Finland</option>
+                <option>France</option><option>Germany</option><option>Greece</option>
+                <option>Hungary</option><option>Ireland</option><option>Italy</option>
+                <option>Latvia</option><option>Lithuania</option><option>Luxembourg</option>
+                <option>Malta</option><option>Netherlands</option><option>Poland</option>
+                <option>Portugal</option><option>Romania</option><option>Slovakia</option>
+                <option>Slovenia</option><option>Spain</option><option>Sweden</option>
+                <option>Turkey</option><option>Norway</option><option>Iceland</option>
+                <option>North Macedonia</option><option>Serbia</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="dym-type">Institution Type <span class="required">*</span></label>
+              <select class="form-input" id="dym-type" name="institution_type" required>
+                <option value="" disabled selected>Select type</option>
+                <option>Primary School</option>
+                <option>Secondary School</option>
+                <option>VET Institution</option>
+                <option>Adult Education Organisation</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="dym-erasmus">Erasmus+ Status <span class="required">*</span></label>
+              <select class="form-input" id="dym-erasmus" name="erasmus_status" required>
+                <option value="" disabled selected>Select status</option>
+                <option>Accreditation</option>
+                <option>Applying</option>
+                <option>Project grant</option>
+                <option>New to Erasmus+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-section-title">Your Mobility Project</div>
+
+          <div class="form-group">
+            <label class="form-label">Type of programme <span class="required">*</span></label>
+            <div class="checkbox-grid-3">
+              <label class="checkbox-option"><input type="checkbox" name="programme_type" value="Bespoke training course"> Bespoke training course</label>
+              <label class="checkbox-option"><input type="checkbox" name="programme_type" value="Dedicated group mobility week"> Dedicated group mobility week</label>
+              <label class="checkbox-option"><input type="checkbox" name="programme_type" value="Job shadowing"> Job shadowing</label>
+              <label class="checkbox-option"><input type="checkbox" name="programme_type" value="Learner internship"> Learner internship</label>
+              <label class="checkbox-option"><input type="checkbox" name="programme_type" value="Multi-destination project"> Multi-destination project</label>
+              <label class="checkbox-option"><input type="checkbox" name="programme_type" value="Combined training and cultural immersion"> Combined training and cultural immersion</label>
+              <label class="checkbox-option"><input type="checkbox" name="programme_type" value="Something else"> Something else</label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="dym-participants">Number of participants</label>
+              <select class="form-input" id="dym-participants" name="participants">
+                <option value="">Not yet decided</option>
+                <option>1 to 5</option><option>6 to 10</option>
+                <option>11 to 20</option><option>More than 20</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="dym-budget">Budget indication</label>
+              <select class="form-input" id="dym-budget" name="budget">
+                <option value="">Not yet determined</option>
+                <option>Up to 500 EUR per person</option>
+                <option>500 to 800 EUR per person</option>
+                <option>800 to 1200 EUR per person</option>
+                <option>Above 1200 EUR per person</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="dym-destination">Preferred destination</label>
+              <input class="form-input" type="text" id="dym-destination" name="preferred_destination" placeholder="e.g. Amsterdam or open to suggestions">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="dym-timing">Preferred timing</label>
+              <input class="form-input" type="text" id="dym-timing" name="preferred_timing" placeholder="e.g. Spring 2027">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="dym-topic">Topic or focus area <span class="required">*</span></label>
+            <textarea class="form-textarea" id="dym-topic" name="topic_focus" required rows="4" placeholder="Describe what your institution wants to achieve. What topics, skills or outcomes matter most?"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="dym-notes">Anything else we should know</label>
+            <textarea class="form-textarea" id="dym-notes" name="additional_notes" rows="3" placeholder="Any other context that would help us understand your project better."></textarea>
+          </div>
+
+          <div class="form-section-title">Data Consent</div>
+
+          <div class="form-group">
+            <label class="form-checkbox">
+              <input type="checkbox" name="consent" required value="yes">
+              <span class="form-checkbox-label">I consent to Sude Nexus storing and using my contact information to develop a bespoke programme proposal. I can withdraw consent at any time by contacting <a href="mailto:info@sudenexus.com">info@sudenexus.com</a>. <span style="color:var(--color-burgundy);">*</span></span>
+            </label>
+          </div>
+
+          <div style="margin-top:1.5rem;">
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Send My Design Brief</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECTION 7: REASSURANCE BLOCK -->
+    <section class="section bg-off-white" aria-labelledby="reassurance-heading">
+      <div class="container" style="max-width:700px;text-align:center;">
+        <div class="reveal">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-burgundy)" stroke-width="1.5" aria-hidden="true" style="margin:0 auto 1.5rem;display:block;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <h2 id="reassurance-heading">No Obligation. No Pressure. Just a Conversation.</h2>
+          <p style="color:#4a5568;margin-top:1rem;line-height:1.75;">Submitting this form commits you to nothing. It simply starts a conversation. We will read your brief carefully, think about what you need and get back to you with our initial thoughts within one working day. If we can help you, we will tell you how. If what you need is outside our scope, we will tell you that too and point you in the right direction.</p>
+          <p style="color:#4a5568;line-height:1.75;">We have been doing this for over 11 years. We know that trust is built slowly and through honest, useful conversations. This is where ours begins.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8: CTA -->
+    <section class="cta-banner" aria-labelledby="dym-cta-heading">
+      <div class="container cta-banner-content">
+        <h2 id="dym-cta-heading" class="reveal">Ready to Design Something Together?</h2>
+        <p class="reveal reveal-delay-1">Fill in the form above or contact us directly at info@sudenexus.com. We look forward to hearing about your institution and your ideas.</p>
+        <div class="cta-banner-actions reveal reveal-delay-2">
+          <a href="/courses" class="btn btn-primary btn-lg">Browse Our Standard Catalogue</a>
+          <a href="/contact" class="btn btn-secondary btn-lg">Contact Us Directly</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-logo">
+            <img src="/assets/images/logo-compact-dark.svg" alt="sudeNEXUS Learning" width="130" height="32">
+          </div>
+          <p>Sude Nexus is a Netherlands-based Erasmus+ training organisation offering professional development courses for teachers and school staff across Europe and the Mediterranean.</p>
+          <a href="/eu-framework" class="footer-eu-link">EU Framework Reference Hub</a>
+        </div>
+        <div class="footer-col">
+          <h4>Erasmus Training Courses</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="/courses/digital-transformation-and-ai">Digital Transformation and AI</a></li>
+            <li><a href="/courses/innovative-teaching-methods">Innovative Teaching Methods</a></li>
+            <li><a href="/courses/inclusion-wellbeing-and-school-safety">Inclusion, Wellbeing and School Safety</a></li>
+            <li><a href="/courses/language-and-communication">Language and Communication</a></li>
+            <li><a href="/courses/sustainability-and-global-citizenship">Sustainability and Global Citizenship</a></li>
+            <li><a href="/courses/school-leadership-and-development">School Leadership and Development</a></li>
+            <li><a href="/courses/pedagogy-and-early-childhood">Pedagogy and Early Childhood</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/locations">Our Locations</a></li>
+            <li><a href="/services">Services</a></li>
+            <li><a href="/dates">Course Dates</a></li>
+            <li><a href="/vet-mobility">VET Mobility</a></li>
+            <li><a href="/adu-mobility">ADU Mobility</a></li>
+            <li><a href="/design-your-mobility">Design Your Mobility</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <div class="footer-contact">
+            <p>Sude Nexus, The Netherlands</p>
+            <p><a href="mailto:info@sudenexus.com" style="color:rgba(255,255,255,0.6);">info@sudenexus.com</a></p>
+            <p>Monday to Friday, 9am to 6pm CET</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-left">Organisation registered in the Netherlands | Erasmus+ accredited provider<br>Copyright 2026 Sude Nexus. All rights reserved.</div>
+        <div class="footer-bottom-right">
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/privacy#cookies">Cookie Notice</a>
+          <a href="#" data-open-cookie-settings>Cookie Settings</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie-banner" role="dialog" aria-label="Cookie consent">
+    <p>We use cookies to ensure the site works correctly and to understand how it is used. Read our <a href="/privacy#cookies">Cookie Policy</a> for details.</p>
+    <div class="cookie-actions">
+      <button class="btn btn-secondary btn-sm" data-cookie-decline>Essential only</button>
+      <button class="btn btn-primary btn-sm" data-cookie-accept>Accept all</button>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>
