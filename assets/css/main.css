@@ -287,8 +287,10 @@ p:last-child {
 }
 
 .nav-logo img {
-  height: 36px;
-  width: auto;
+  width: 160px;
+  height: auto;
+  max-height: 48px;
+  object-fit: contain;
 }
 
 /* Main Nav Links */
@@ -1235,8 +1237,10 @@ p:last-child {
 }
 
 .footer-logo img {
-  height: 32px;
-  width: auto;
+  width: 160px;
+  height: auto;
+  max-height: 48px;
+  object-fit: contain;
 }
 
 .footer-col p {
@@ -1804,6 +1808,227 @@ p:last-child {
 @keyframes icon-dot {
   0%, 80%, 100% { opacity: 0; transform: translateY(0); }
   40%           { opacity: 1; transform: translateY(-3px); }
+}
+
+/* ----------------------------------------------------------------
+   Phase 8 - Photo Standards
+   Standardised heights with object-fit: cover — scale correctly on zoom
+   ---------------------------------------------------------------- */
+
+/* Location hero: 420px */
+.location-hero-photo,
+.location-hero .hero-photo {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Location detail: 400px */
+.location-detail-photo {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius-xl);
+  display: block;
+}
+
+/* Category hero band: 280px */
+.cat-hero-band {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+}
+
+.cat-hero-band img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.cat-hero-band-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.40) 100%);
+  pointer-events: none;
+}
+
+/* Course photos: 220px */
+.course-photo,
+.course-card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Content/about photos: 320px */
+.content-photo {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: var(--radius-xl);
+  display: block;
+}
+
+/* Homepage hero photo: 600px */
+.homepage-hero-photo {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Generic photo wrapper — fixes zoom scaling issue */
+.photo-wrap {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Standard hero overlay gradient */
+.hero-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.35) 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .location-hero-photo,
+  .location-hero .hero-photo { height: 280px; }
+  .location-detail-photo      { height: 280px; }
+  .cat-hero-band,
+  .cat-hero-band img          { height: 200px; }
+  .course-photo,
+  .course-card-img            { height: 180px; }
+  .content-photo              { height: 240px; }
+  .homepage-hero-photo        { height: 400px; }
+}
+
+/* ----------------------------------------------------------------
+   Phase 8 - WhatsApp Styles
+   ---------------------------------------------------------------- */
+
+/* Inline WhatsApp link (footer contact column) */
+.footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: #25d366;
+  font-weight: 500;
+  margin-top: var(--space-sm);
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.footer-whatsapp:hover {
+  color: #1ebe5d;
+}
+
+.footer-whatsapp svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* Circular WhatsApp icon button */
+.whatsapp-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #25d366;
+  border-radius: var(--radius-full);
+  color: #fff;
+  flex-shrink: 0;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  text-decoration: none;
+}
+
+.whatsapp-icon:hover {
+  background: #1ebe5d;
+  transform: scale(1.08);
+}
+
+.whatsapp-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Text link with WhatsApp branding */
+.whatsapp-link-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #25d366;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.whatsapp-link-text:hover {
+  color: #1ebe5d;
+}
+
+.whatsapp-link-text svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ----------------------------------------------------------------
+   Phase 8 - Card Colour Variants
+   Coloured top-border and light background variants for
+   homepage cards, about cards, services cards
+   ---------------------------------------------------------------- */
+
+/* Top accent border variants */
+.card-accent-digital        { border-top: 4px solid var(--cat-digital); }
+.card-accent-teaching       { border-top: 4px solid var(--cat-teaching); }
+.card-accent-inclusion      { border-top: 4px solid var(--cat-inclusion); }
+.card-accent-language       { border-top: 4px solid var(--cat-language); }
+.card-accent-sustainability { border-top: 4px solid var(--cat-sustainability); }
+.card-accent-leadership     { border-top: 4px solid var(--cat-leadership); }
+.card-accent-pedagogy       { border-top: 4px solid var(--cat-pedagogy); }
+.card-accent-vet            { border-top: 4px solid var(--cat-vet); }
+.card-accent-adu            { border-top: 4px solid var(--cat-adu); }
+.card-accent-burgundy       { border-top: 4px solid var(--color-burgundy); }
+.card-accent-navy           { border-top: 4px solid var(--color-navy); }
+
+/* Light background tint variants */
+.card-bg-digital        { background: #e8f4fb; border-color: #b3d7ef; }
+.card-bg-teaching       { background: #fdf0e8; border-color: #f5cba7; }
+.card-bg-inclusion      { background: #fbeaed; border-color: #e8a0b0; }
+.card-bg-language       { background: #f0edf8; border-color: #c4b8e8; }
+.card-bg-sustainability { background: #e8f4ed; border-color: #a8d5b5; }
+.card-bg-leadership     { background: #e8eef5; border-color: #b3c8df; }
+.card-bg-pedagogy       { background: #fdf6e3; border-color: #f0d080; }
+.card-bg-vet            { background: #fdf0e8; border-color: #f5cba7; }
+.card-bg-adu            { background: #e8f4f6; border-color: #a8d5dc; }
+
+/* Category icon sizes — Phase 8: slightly bigger */
+.category-card-icon {
+  width: 64px;
+  height: 64px;
 }
 
 /* ----------------------------------------------------------------
