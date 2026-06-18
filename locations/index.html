@@ -3,16 +3,112 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sudeNEXUS Learning | Erasmus+ Teacher Training Across Europe</title>
-  <meta name="description" content="Erasmus+ KA1 professional development courses for teachers and school staff across 13 inspiring destinations in Europe and the Mediterranean. Netherlands-based, 100% Erasmus+ eligible.">
+  <title>Our Locations | sudeNEXUS Learning</title>
+  <meta name="description" content="15 destinations across Europe and the Mediterranean. Amsterdam, Rotterdam, Bruges, Hamburg, Berlin, Vienna, Barcelona, Porto, Athens, Thessaloniki, Naples, Cappadocia, Istanbul, Antalya and Skien.">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="sudeNEXUS Learning | Erasmus+ Teacher Training Across Europe">
-  <meta property="og:description" content="32 professional development courses across 13 European destinations. 100% Erasmus+ KA1 eligible. Based in the Netherlands.">
+  <meta property="og:title" content="Our Locations | sudeNEXUS Learning">
+  <meta property="og:description" content="15 carefully chosen destinations across Europe and the Mediterranean for Erasmus+ KA1 professional development.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sudenexus.nl/">
-  <link rel="canonical" href="https://sudenexus.nl/">
+  <meta property="og:url" content="https://sudenexus.nl/locations">
+  <link rel="canonical" href="https://sudenexus.nl/locations">
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="icon" type="image/svg+xml" href="/assets/images/1sudex-logo.svg">
+  <style>
+    .city-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 1100px) { .city-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 720px)  { .city-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px)  { .city-grid { grid-template-columns: 1fr; } }
+
+    .city-card {
+      display: block;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      text-decoration: none;
+      border: 1px solid var(--color-light-grey);
+      background: #fff;
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+    .city-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: transparent;
+    }
+    .city-card-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--color-light-grey);
+    }
+    .city-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform var(--transition-slow);
+    }
+    .city-card:hover .city-card-img img {
+      transform: scale(1.04);
+    }
+    .city-card-body {
+      padding: 1rem 1.125rem 1.125rem;
+    }
+    .city-card-country {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-burgundy);
+      margin-bottom: 0.25rem;
+    }
+    .city-card-name {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin-bottom: 0.375rem;
+    }
+    .city-card-tagline {
+      font-size: 0.8125rem;
+      color: #6b7280;
+      line-height: 1.45;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) { .why-grid { grid-template-columns: 1fr; } }
+
+    .why-card {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      border: 1px solid var(--color-light-grey);
+    }
+    .why-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: rgba(30,58,95,0.07);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      color: var(--color-navy);
+    }
+    .why-card h3 {
+      font-size: 1.0625rem;
+      margin-bottom: 0.5rem;
+    }
+    .why-card p {
+      font-size: 0.9rem;
+      color: #4a5568;
+      line-height: 1.65;
+    }
+  </style>
 </head>
 <body class="page-body">
 
@@ -22,7 +118,7 @@
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="sudeNEXUS Learning home">
-        <img src="/assets/images/logo-compact-light.svg" alt="sudeNEXUS Learning" width="140" height="36">
+        <img src="/assets/images/logo-nav-dark.jpg" alt="sudeNEXUS Learning" width="160" style="height:auto;max-height:48px;object-fit:contain;">
       </a>
 
       <ul class="nav-links" role="list">
@@ -44,30 +140,16 @@
           </ul>
         </li>
         <li class="nav-dropdown">
-          <a href="/locations" aria-haspopup="true">Locations</a>
+          <a href="/locations" aria-haspopup="true" class="active">Locations</a>
           <ul class="dropdown-menu" role="list">
-            <li><a href="/locations">All Destinations</a></li>
-            <div class="dropdown-divider" role="separator"></div>
-            <li><a href="/locations/amsterdam">Amsterdam</a></li>
-            <li><a href="/locations/rotterdam">Rotterdam</a></li>
-            <li><a href="/locations/bruges">Bruges</a></li>
-            <li><a href="/locations/hamburg">Hamburg</a></li>
-            <li><a href="/locations/berlin">Berlin</a></li>
-            <li><a href="/locations/vienna">Vienna</a></li>
-            <li><a href="/locations/barcelona">Barcelona</a></li>
-            <li><a href="/locations/athens">Athens</a></li>
-            <li><a href="/locations/thessaloniki">Thessaloniki</a></li>
-            <li><a href="/locations/naples">Naples</a></li>
-            <li><a href="/locations/cappadocia">Cappadocia</a></li>
-            <li><a href="/locations/istanbul">Istanbul</a></li>
-            <li><a href="/locations/antalya">Antalya</a></li>
+            <li><a href="/locations">All Locations</a></li>
           </ul>
         </li>
         <li class="nav-dropdown">
-          <a href="/vet-mobility" aria-haspopup="true">VET and ADU</a>
+          <a href="/vet-mobility" aria-haspopup="true">Mobility Programmes</a>
           <ul class="dropdown-menu" role="list">
-            <li><a href="/vet-mobility">VET Mobility</a></li>
-            <li><a href="/adu-mobility">ADU Mobility</a></li>
+            <li><a href="/vet-mobility">Vocational Education and Training (VET)</a></li>
+            <li><a href="/adu-mobility">Adult Education (ADU)</a></li>
           </ul>
         </li>
         <li><a href="/services">Services</a></li>
@@ -106,26 +188,14 @@
       <li>
         <a href="/locations">Locations</a>
         <ul class="nav-mobile-sub" role="list">
-          <li><a href="/locations/amsterdam">Amsterdam</a></li>
-          <li><a href="/locations/rotterdam">Rotterdam</a></li>
-          <li><a href="/locations/bruges">Bruges</a></li>
-          <li><a href="/locations/hamburg">Hamburg</a></li>
-          <li><a href="/locations/berlin">Berlin</a></li>
-          <li><a href="/locations/vienna">Vienna</a></li>
-          <li><a href="/locations/barcelona">Barcelona</a></li>
-          <li><a href="/locations/athens">Athens</a></li>
-          <li><a href="/locations/thessaloniki">Thessaloniki</a></li>
-          <li><a href="/locations/naples">Naples</a></li>
-          <li><a href="/locations/cappadocia">Cappadocia</a></li>
-          <li><a href="/locations/istanbul">Istanbul</a></li>
-          <li><a href="/locations/antalya">Antalya</a></li>
+          <li><a href="/locations">All Locations</a></li>
         </ul>
       </li>
       <li>
-        <a href="/vet-mobility">VET and ADU</a>
+        <a href="/vet-mobility">Mobility Programmes</a>
         <ul class="nav-mobile-sub" role="list">
-          <li><a href="/vet-mobility">VET Mobility</a></li>
-          <li><a href="/adu-mobility">ADU Mobility</a></li>
+          <li><a href="/vet-mobility">Vocational Education and Training (VET)</a></li>
+          <li><a href="/adu-mobility">Adult Education (ADU)</a></li>
         </ul>
       </li>
       <li><a href="/services">Services</a></li>
@@ -137,594 +207,280 @@
   <main>
 
     <!-- ============================================================
-         SECTION 1: HERO BANNER
+         SECTION 1: PAGE HERO
          ============================================================ -->
-    <section class="hero" aria-label="Hero">
-      <div class="hero-bg" aria-hidden="true"></div>
-
-      <!-- Hero image placeholder (replaced with homepage-hero-01.jpg after launch) -->
-      <div class="hero-image-area" aria-hidden="true">
-        <img src="/assets/images/homepage-hero-01.jpg" alt="Homepage Hero 01" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-      </div>
-
-      <div class="hero-content">
-        <div class="hero-eyebrow" aria-label="Erasmus+ KA1 eligible">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
-            <circle cx="6" cy="6" r="6"/>
-          </svg>
-          Erasmus+ KA1 Eligible
+    <section class="page-hero" aria-labelledby="locations-hero-heading">
+      <div class="container page-hero-content">
+        <div class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">›</span>
+          <span class="current">Locations</span>
         </div>
-
-        <h1>Transform Your Teaching.<br><em>Explore Europe.</em></h1>
-
-        <p class="hero-sub">
-          Erasmus+ KA1 professional development courses for teachers and school staff across 13 inspiring destinations in Europe and the Mediterranean.
-        </p>
-
-        <div class="hero-actions">
-          <a href="/courses" class="btn btn-primary btn-lg">Explore Our Courses</a>
-          <a href="/locations" class="btn btn-secondary btn-lg">Discover Our Locations</a>
-        </div>
+        <h1 id="locations-hero-heading">Our Locations</h1>
+        <p>15 destinations across Europe and the Mediterranean. Choose the city that inspires you.</p>
       </div>
     </section>
 
     <!-- ============================================================
-         SECTION 2: TRUST BAR
-         ============================================================ -->
-    <div class="trust-bar" role="region" aria-label="Key facts">
-      <div class="trust-bar-inner">
-        <div class="trust-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-          Netherlands-Based Organisation
-        </div>
-        <div class="trust-divider" aria-hidden="true"></div>
-        <div class="trust-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-          13 Destinations Across Europe
-        </div>
-        <div class="trust-divider" aria-hidden="true"></div>
-        <div class="trust-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-          </svg>
-          32 Professional Development Courses
-        </div>
-        <div class="trust-divider" aria-hidden="true"></div>
-        <div class="trust-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polyline points="20 6 9 17 4 12"/>
-          </svg>
-          100% Erasmus+ KA1 Eligible
-        </div>
-        <div class="trust-divider" aria-hidden="true"></div>
-        <div class="trust-item">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-          Transnational Learning Community
-        </div>
-      </div>
-    </div>
-
-    <!-- ============================================================
-         SECTION 3: INTRODUCTION
+         SECTION 2: INTRO TEXT
          ============================================================ -->
     <section class="section bg-off-white" aria-labelledby="intro-heading">
-      <div class="container">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
-          <div class="reveal">
-            <h2 id="intro-heading">Your European Partner for Teacher Training</h2>
-            <div style="height:3px;width:48px;background:var(--color-burgundy);margin:1.25rem 0 1.5rem;border-radius:2px;" aria-hidden="true"></div>
-            <p class="text-lead">
-              Sude Nexus is a Netherlands-based training organisation dedicated to the professional development of teachers, school leaders and education staff across Europe. We design and deliver Erasmus+ KA1 eligible courses that combine high-quality training with genuine cultural immersion.
-            </p>
-            <p style="color:#4a5568;margin-top:1rem;">
-              Our courses are built around what European educators need most right now. From artificial intelligence in the classroom to teacher wellbeing, from inclusive education to outdoor learning, every programme we offer is practical, internationally oriented and ready to strengthen your school's Erasmus+ project.
-            </p>
-            <p style="color:#4a5568;margin-top:1rem;">
-              We believe that the best professional development happens when learning and discovery go hand in hand. That is why every Sude Nexus course takes place in a city worth exploring.
-            </p>
-          </div>
-          <div class="reveal reveal-delay-2">
-            <!-- Homepage about image placeholder (homepage-about-01.jpg) -->
-            <img src="/assets/images/homepage-about-01.jpg" alt="Homepage About 01" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius-xl);" loading="lazy">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SECTION 4: WHY CHOOSE SUDE NEXUS
-         ============================================================ -->
-    <section class="section bg-white" aria-labelledby="why-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <h2 id="why-heading">What Makes Sude Nexus Different</h2>
-        </div>
-        <div class="grid grid-4">
-          <div class="feature-card reveal">
-            <div class="feature-card-icon" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-            </div>
-            <h3>At the Heart of Europe</h3>
-            <p>We are based in the Netherlands, one of Europe's most internationally connected countries. Our roots in the EU mean we understand Erasmus+ from the inside, and we design every course with European quality standards at the core.</p>
-          </div>
-          <div class="feature-card reveal reveal-delay-1">
-            <div class="feature-card-icon" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-            </div>
-            <h3>13 Destinations to Choose From</h3>
-            <p>From Amsterdam and Bruges to Barcelona, Athens, Vienna and Istanbul, our locations span the full breadth of European and Mediterranean culture. Participants gain professional skills and unforgettable experiences in the same week.</p>
-          </div>
-          <div class="feature-card reveal reveal-delay-2">
-            <div class="feature-card-icon" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-              </svg>
-            </div>
-            <h3>A Catalogue Built for 2026 and Beyond</h3>
-            <p>Our 32 courses cover both the established pillars of teacher training and the topics shaping education right now: AI for teachers, digital wellbeing, neurodiversity, mindfulness, teacher burnout prevention and brain-based learning.</p>
-          </div>
-          <div class="feature-card reveal reveal-delay-3">
-            <div class="feature-card-icon" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.93 3.46 2 2 0 0 1 3.91 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9a16 16 0 0 0 6.29 6.29l1.42-1.42a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-            </div>
-            <h3>Full Support from Start to Finish</h3>
-            <p>From the moment your school selects a course to the day your colleagues return home, our team is with you. We handle logistics, provide all documentation for your Erasmus+ project, and make sure every participant has what they need to succeed.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SECTION 5: COURSE CATEGORIES
-         ============================================================ -->
-    <section class="section bg-off-white" aria-labelledby="categories-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <h2 id="categories-heading">Explore Our Course Catalogue</h2>
-          <p>32 courses across 7 professional development categories, all eligible for Erasmus+ KA1 funding.</p>
-        </div>
-
-        <div class="grid grid-4" style="grid-template-columns:repeat(4,1fr);">
-
-          <a href="/courses/digital-transformation-and-ai" class="category-card reveal">
-            <div class="category-card-header cat-bg-digital">
-              <div class="category-card-icon" aria-hidden="true">
-                <!-- Digital icon inline -->
-                <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="32" cy="32" r="6" fill="white"/>
-                  <circle cx="12" cy="20" r="4" fill="white" opacity="0.7"/>
-                  <circle cx="52" cy="20" r="4" fill="white" opacity="0.7"/>
-                  <circle cx="12" cy="44" r="4" fill="white" opacity="0.7"/>
-                  <circle cx="52" cy="44" r="4" fill="white" opacity="0.7"/>
-                  <line x1="32" y1="32" x2="12" y2="20" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                  <line x1="32" y1="32" x2="52" y2="20" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                  <line x1="32" y1="32" x2="12" y2="44" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                  <line x1="32" y1="32" x2="52" y2="44" stroke="white" stroke-width="1.5" opacity="0.6"/>
-                </svg>
-              </div>
-              <span class="category-card-count">5 courses</span>
-              <h3 style="color:#fff;font-size:1rem;margin:0;">Digital Transformation and AI</h3>
-            </div>
-            <div class="category-card-body">
-              <span>Technology for teachers</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-          </a>
-
-          <a href="/courses/innovative-teaching-methods" class="category-card reveal reveal-delay-1">
-            <div class="category-card-header cat-bg-teaching">
-              <div class="category-card-icon" aria-hidden="true">
-                <!-- Teaching icon: lightbulb -->
-                <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M32 10C23.16 10 16 17.16 16 26c0 5.9 3.1 11.05 7.75 14V46h16.5v-6c4.65-2.95 7.75-8.1 7.75-14 0-8.84-7.16-16-16-16z" fill="white" opacity="0.85"/>
-                  <rect x="23" y="48" width="18" height="3" rx="1.5" fill="white" opacity="0.7"/>
-                  <rect x="25" y="53" width="14" height="3" rx="1.5" fill="white" opacity="0.5"/>
-                  <!-- filament spark -->
-                  <circle cx="32" cy="24" r="2" fill="white"/>
-                  <line x1="32" y1="18" x2="32" y2="20" stroke="white" stroke-width="1.5"/>
-                  <line x1="38" y1="20" x2="36.6" y2="21.4" stroke="white" stroke-width="1.5"/>
-                  <line x1="26" y1="20" x2="27.4" y2="21.4" stroke="white" stroke-width="1.5"/>
-                </svg>
-              </div>
-              <span class="category-card-count">6 courses</span>
-              <h3 style="color:#fff;font-size:1rem;margin:0;">Innovative Teaching Methods</h3>
-            </div>
-            <div class="category-card-body">
-              <span>Pedagogy and methodology</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-          </a>
-
-          <a href="/courses/inclusion-wellbeing-and-school-safety" class="category-card reveal reveal-delay-2">
-            <div class="category-card-header cat-bg-inclusion">
-              <div class="category-card-icon" aria-hidden="true">
-                <!-- Inclusion icon: interlocking circles -->
-                <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="22" cy="30" r="12" fill="white" opacity="0.4"/>
-                  <circle cx="42" cy="30" r="12" fill="white" opacity="0.4"/>
-                  <circle cx="32" cy="44" r="10" fill="white" opacity="0.4"/>
-                  <circle cx="22" cy="30" r="5" fill="white" opacity="0.8"/>
-                  <circle cx="42" cy="30" r="5" fill="white" opacity="0.8"/>
-                  <circle cx="32" cy="44" r="5" fill="white" opacity="0.8"/>
-                </svg>
-              </div>
-              <span class="category-card-count">7 courses</span>
-              <h3 style="color:#fff;font-size:1rem;margin:0;">Inclusion, Wellbeing and School Safety</h3>
-            </div>
-            <div class="category-card-body">
-              <span>Equity and belonging</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-          </a>
-
-          <a href="/courses/language-and-communication" class="category-card reveal reveal-delay-3">
-            <div class="category-card-header cat-bg-language">
-              <div class="category-card-icon" aria-hidden="true">
-                <!-- Language icon: speech bubbles -->
-                <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M8 16 Q8 8 18 8 L46 8 Q54 8 54 16 L54 32 Q54 40 46 40 L36 40 L28 52 L28 40 L18 40 Q8 40 8 32 Z" fill="white" opacity="0.8"/>
-                  <!-- dots -->
-                  <circle cx="24" cy="24" r="2.5" fill="rgba(91,74,138,0.6)"/>
-                  <circle cx="32" cy="24" r="2.5" fill="rgba(91,74,138,0.6)"/>
-                  <circle cx="40" cy="24" r="2.5" fill="rgba(91,74,138,0.6)"/>
-                </svg>
-              </div>
-              <span class="category-card-count">4 courses</span>
-              <h3 style="color:#fff;font-size:1rem;margin:0;">Language and Communication</h3>
-            </div>
-            <div class="category-card-body">
-              <span>Language and CLIL</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-          </a>
-
-          <a href="/courses/sustainability-and-global-citizenship" class="category-card reveal">
-            <div class="category-card-header cat-bg-sustainability">
-              <div class="category-card-icon" aria-hidden="true">
-                <!-- Sustainability: leaf -->
-                <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M32 8 C32 8 52 14 52 34 C52 46 42 56 32 56 C22 56 12 46 12 34 C12 14 32 8 32 8 Z" fill="white" opacity="0.8"/>
-                  <line x1="32" y1="56" x2="32" y2="32" stroke="rgba(46,125,79,0.5)" stroke-width="2"/>
-                  <line x1="32" y1="40" x2="22" y2="30" stroke="rgba(46,125,79,0.4)" stroke-width="1.5"/>
-                  <line x1="32" y1="44" x2="42" y2="34" stroke="rgba(46,125,79,0.4)" stroke-width="1.5"/>
-                </svg>
-              </div>
-              <span class="category-card-count">3 courses</span>
-              <h3 style="color:#fff;font-size:1rem;margin:0;">Sustainability and Global Citizenship</h3>
-            </div>
-            <div class="category-card-body">
-              <span>Environment and civic values</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-          </a>
-
-          <a href="/courses/school-leadership-and-development" class="category-card reveal reveal-delay-1">
-            <div class="category-card-header cat-bg-leadership">
-              <div class="category-card-icon" aria-hidden="true">
-                <!-- Leadership: compass -->
-                <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="32" cy="32" r="20" stroke="white" stroke-width="2" opacity="0.6" fill="none"/>
-                  <!-- compass needle -->
-                  <polygon points="32,12 36,32 32,38 28,32" fill="white" opacity="0.9"/>
-                  <polygon points="32,52 36,32 32,38 28,32" fill="white" opacity="0.4"/>
-                  <circle cx="32" cy="32" r="3" fill="white"/>
-                  <!-- cardinal points -->
-                  <text x="30" y="10" fill="white" font-size="6" font-family="DM Sans,sans-serif" font-weight="700" opacity="0.7">N</text>
-                </svg>
-              </div>
-              <span class="category-card-count">6 courses</span>
-              <h3 style="color:#fff;font-size:1rem;margin:0;">School Leadership and Development</h3>
-            </div>
-            <div class="category-card-body">
-              <span>Management and Erasmus+</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-          </a>
-
-          <a href="/courses/pedagogy-and-early-childhood" class="category-card reveal reveal-delay-2">
-            <div class="category-card-header cat-bg-pedagogy">
-              <div class="category-card-icon" aria-hidden="true">
-                <!-- Pedagogy: open book with seedling -->
-                <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M8 16 L8 50 Q8 52 10 52 L30 52 Q32 44 32 44 Q32 44 34 52 L54 52 Q56 52 56 50 L56 16 Q56 14 54 14 L34 14 Q32 14 32 16 Q32 14 30 14 L10 14 Q8 14 8 16 Z" fill="white" opacity="0.75"/>
-                  <line x1="32" y1="16" x2="32" y2="52" stroke="rgba(184,134,11,0.4)" stroke-width="1.5"/>
-                  <!-- seedling -->
-                  <line x1="32" y1="6" x2="32" y2="14" stroke="white" stroke-width="2"/>
-                  <path d="M32 10 Q26 6 24 2 Q28 4 32 10 Z" fill="white" opacity="0.8"/>
-                  <path d="M32 8 Q38 4 40 0 Q36 2 32 8 Z" fill="white" opacity="0.6"/>
-                </svg>
-              </div>
-              <span class="category-card-count">3 courses</span>
-              <h3 style="color:#fff;font-size:1rem;margin:0;">Pedagogy and Early Childhood</h3>
-            </div>
-            <div class="category-card-body">
-              <span>Early years and brain science</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </div>
-          </a>
-
-          <!-- Placeholder 8th card: VET and ADU callout -->
-          <div class="category-card reveal reveal-delay-3" style="text-decoration:none;cursor:default;">
-            <div class="category-card-header" style="background:linear-gradient(135deg,var(--cat-vet),var(--cat-adu));">
-              <div class="category-card-icon" aria-hidden="true">
-                <!-- VET/ADU icon: gear + community circle -->
-                <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="24" cy="32" r="12" fill="white" opacity="0.5"/>
-                  <!-- gear tooth hints -->
-                  <circle cx="24" cy="32" r="6" fill="white" opacity="0.8"/>
-                  <circle cx="44" cy="28" r="8" fill="white" opacity="0.4"/>
-                  <circle cx="44" cy="28" r="4" fill="white" opacity="0.7"/>
-                  <circle cx="46" cy="42" r="6" fill="white" opacity="0.35"/>
-                </svg>
-              </div>
-              <span class="category-card-count">16 courses</span>
-              <h3 style="color:#fff;font-size:1rem;margin:0;">VET and Adult Education</h3>
-            </div>
-            <div class="category-card-body" style="flex-direction:column;align-items:flex-start;gap:0.5rem;">
-              <a href="/vet-mobility" style="font-size:0.8rem;font-weight:600;color:var(--cat-vet);display:flex;align-items:center;gap:4px;">VET Mobility <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-              <a href="/adu-mobility" style="font-size:0.8rem;font-weight:600;color:var(--cat-adu);display:flex;align-items:center;gap:4px;">ADU Mobility <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="text-center" style="margin-top:2.5rem;">
-          <a href="/courses" class="btn btn-outline-navy btn-lg">View All Courses</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SECTION 6: DESTINATIONS HIGHLIGHT
-         ============================================================ -->
-    <section class="section bg-navy" aria-labelledby="destinations-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <h2 id="destinations-heading" style="color:#fff;">Choose Your Destination</h2>
-          <p style="color:rgba(255,255,255,0.7);">Every Sude Nexus course is offered across a selection of our 13 locations. Pair your professional development with a city that inspires.</p>
-        </div>
-
-        <!-- Destinations teaser image placeholder -->
-        <div class="reveal" style="margin-bottom:3rem;">
-          <img src="/assets/images/homepage-destinations-01.jpg" alt="Homepage Destinations 01" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--radius-xl);" loading="lazy">
-        </div>
-
-        <!-- City name display -->
-        <div class="reveal" style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:2rem;" role="list" aria-label="Destination cities">
-          <a href="/locations/amsterdam"    class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Amsterdam</a>
-          <a href="/locations/rotterdam"    class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Rotterdam</a>
-          <a href="/locations/bruges"       class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Bruges</a>
-          <a href="/locations/hamburg"      class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Hamburg</a>
-          <a href="/locations/berlin"       class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Berlin</a>
-          <a href="/locations/vienna"       class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Vienna</a>
-          <a href="/locations/barcelona"    class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Barcelona</a>
-          <a href="/locations/athens"       class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Athens</a>
-          <a href="/locations/thessaloniki" class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Thessaloniki</a>
-          <a href="/locations/naples"       class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Naples</a>
-          <a href="/locations/cappadocia"   class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Cappadocia</a>
-          <a href="/locations/istanbul"     class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Istanbul</a>
-          <a href="/locations/antalya"      class="btn btn-secondary" style="padding:8px 18px;font-size:0.875rem;" role="listitem">Antalya</a>
-        </div>
-
-        <p class="reveal" style="text-align:center;color:rgba(255,255,255,0.7);max-width:700px;margin:0 auto 2rem;">
-          Each of our destinations offers a rich cultural backdrop that becomes part of the learning experience. Whether you join us in the historic heart of Athens, the canal-lined streets of Bruges, the vibrant energy of Barcelona or the crossroads of civilisations in Istanbul, you will return to your school with more than new teaching skills.
-        </p>
-
-        <div class="text-center reveal">
-          <a href="/locations" class="btn btn-primary btn-lg">Explore All Locations</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SECTION 7: HOW IT WORKS
-         ============================================================ -->
-    <section class="section bg-off-white" aria-labelledby="how-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <h2 id="how-heading">Simple Steps to Your Erasmus+ Mobility</h2>
-        </div>
-        <div class="steps-grid">
-          <div class="step reveal">
-            <div class="step-number" aria-hidden="true">1</div>
-            <h3>Choose Your Course and Destination</h3>
-            <p>Browse our catalogue of 32 courses and select the topic and city that best fits your school development goals and your Erasmus+ project priorities.</p>
-          </div>
-          <div class="step reveal reveal-delay-1">
-            <div class="step-number" aria-hidden="true">2</div>
-            <h3>Book and Prepare</h3>
-            <p>Contact our team to confirm dates and availability. We provide all the documentation your school needs for the Erasmus+ application and grant process.</p>
-          </div>
-          <div class="step reveal reveal-delay-2">
-            <div class="step-number" aria-hidden="true">3</div>
-            <h3>Learn, Connect and Return Inspired</h3>
-            <p>Join educators from across Europe for a week of practical training, international exchange and cultural discovery. Come back with new tools, new ideas and new professional connections.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SECTION 8: FEATURED COURSES
-         ============================================================ -->
-    <section class="section bg-white" aria-labelledby="featured-heading">
-      <div class="container">
-        <div class="section-header reveal">
-          <h2 id="featured-heading">Courses in High Demand</h2>
-          <p>These are some of the topics European teachers are prioritising in 2026.</p>
-        </div>
-        <div class="grid grid-3">
-
-          <article class="course-card reveal">
-            <div class="course-card-body">
-              <span class="course-card-badge cat-bg-digital" style="margin-bottom:0.75rem;">Digital Transformation and AI</span>
-              <h3>Artificial Intelligence for Education</h3>
-              <p>A hands-on introduction to AI tools that save time, personalise learning and transform how teachers plan and deliver lessons.</p>
-            </div>
-            <div class="course-card-footer">
-              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:#6b7280;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                7-day programme
-              </div>
-              <a href="/courses/digital-transformation-and-ai/artificial-intelligence-for-education">View Course <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-            </div>
-          </article>
-
-          <article class="course-card reveal reveal-delay-1">
-            <div class="course-card-body">
-              <span class="course-card-badge cat-bg-inclusion" style="margin-bottom:0.75rem;">Inclusion, Wellbeing and School Safety</span>
-              <h3>Teacher Wellbeing and Burnout Prevention</h3>
-              <p>A dedicated space for educators to recharge, rebuild resilience and develop sustainable strategies for managing the demands of the profession.</p>
-            </div>
-            <div class="course-card-footer">
-              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:#6b7280;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                7-day programme
-              </div>
-              <a href="/courses/inclusion-wellbeing-and-school-safety/teacher-wellbeing-and-burnout-prevention">View Course <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-            </div>
-          </article>
-
-          <article class="course-card reveal reveal-delay-2">
-            <div class="course-card-body">
-              <span class="course-card-badge cat-bg-inclusion" style="margin-bottom:0.75rem;">Inclusion, Wellbeing and School Safety</span>
-              <h3>Neurodiversity and Trauma-Informed Teaching</h3>
-              <p>Practical tools for understanding and supporting neurodiverse learners, including students with ADHD, autism, dyslexia and trauma backgrounds.</p>
-            </div>
-            <div class="course-card-footer">
-              <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:#6b7280;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                7-day programme
-              </div>
-              <a href="/courses/inclusion-wellbeing-and-school-safety/neurodiversity-and-trauma-informed-teaching">View Course <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-            </div>
-          </article>
-
-        </div>
-        <div class="text-center" style="margin-top:2.5rem;">
-          <a href="/courses" class="btn btn-navy">See All Courses</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         SECTION 9: ERASMUS+ INFORMATION BLOCK
-         ============================================================ -->
-    <section class="section bg-off-white" aria-labelledby="erasmus-heading">
       <div class="container" style="max-width:860px;">
-        <div class="erasmus-block reveal">
-          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
-            <div style="width:48px;height:48px;background:var(--color-burgundy);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0;" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-            </div>
-            <h2 id="erasmus-heading" style="margin:0;">100% Erasmus+ KA1 Eligible</h2>
-          </div>
-          <p>
-            All Sude Nexus courses are designed to fully meet the requirements of Erasmus+ Key Action 1 mobility projects for school education staff. Our programmes include a clear transnational component, structured active learning, and professional skills development directly relevant to teaching and school leadership.
+        <div class="reveal">
+          <h2 id="intro-heading">Where Will You Learn Next?</h2>
+          <div style="height:3px;width:48px;background:var(--color-burgundy);margin:1.25rem 0 1.5rem;border-radius:2px;" aria-hidden="true"></div>
+          <p class="text-lead">
+            At Sude Nexus we believe that where you learn is as important as what you learn. That is why we have built a network of 15 carefully chosen destinations across Europe and the Mediterranean, each offering a unique combination of professional training quality, cultural richness and genuine inspiration.
           </p>
-          <p>
-            Every course comes with the documentation your school needs: a detailed course description, a letter of confirmation, a participant certificate and an attendance record for your National Agency reporting.
+          <p style="color:#4a5568;margin-top:1rem;">
+            From the canal-lined streets of Amsterdam and Bruges to the sun-drenched Mediterranean shores of Barcelona, Athens and Antalya, from the dynamic energy of Berlin and Hamburg to the ancient crossroads of Istanbul, from the Douro riverfront of Porto to the Nordic forests of Skien and the classical heritage of Naples, every Sude Nexus destination adds something distinctive to the professional development experience.
           </p>
-          <p>
-            Not sure where to start with your Erasmus+ application? Our team is happy to guide you through the process.
+          <p style="color:#4a5568;margin-top:1rem;">
+            All 15 locations offer fully equipped professional training facilities, a rich cultural and social programme, and the full support of our local coordination team. Your Erasmus+ grant covers your course fee, travel, accommodation and subsistence. All you need to do is choose your destination.
           </p>
-          <div style="margin-top:1.5rem;">
-            <a href="/contact" class="btn btn-primary">Contact Us</a>
-          </div>
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         SECTION 10: LOCATIONS TEASER (3 featured cities)
+         SECTION 3: CITY GRID (15 cities)
          ============================================================ -->
-    <section class="section bg-white" aria-labelledby="locations-teaser-heading">
+    <section class="section bg-white" aria-labelledby="city-grid-heading">
       <div class="container">
         <div class="section-header reveal">
-          <h2 id="locations-teaser-heading">A Different Kind of Professional Development</h2>
-          <p>Training with Sude Nexus means more than attending a course. It means spending a week in a city that challenges your perspective, broadens your horizons and reminds you why you became a teacher.</p>
+          <h2 id="city-grid-heading">All 15 Locations</h2>
+          <p>Click any destination to explore the city and see available courses.</p>
         </div>
 
-        <div class="grid grid-3">
+        <div class="city-grid">
 
-          <a href="/locations/amsterdam" class="destination-card reveal" aria-label="Explore Amsterdam">
-            <div class="destination-card-img">
-              <!-- Location placeholder: location-amsterdam-hero.jpg -->
-              <img src="/assets/images/location-amsterdam-hero.jpg" alt="Location Amsterdam Hero" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+          <a href="/locations/amsterdam" class="city-card reveal" aria-label="Explore Amsterdam">
+            <div class="city-card-img">
+              <img src="/assets/images/location-amsterdam-hero.jpg" alt="Amsterdam" loading="lazy">
             </div>
-            <div class="destination-card-overlay">
-              <h3>Amsterdam</h3>
-              <span>Netherlands</span>
-              <p style="font-size:0.8rem;margin-top:0.5rem;opacity:0.85;">The home of Sude Nexus and one of Europe's most progressive cities for education and innovation. Train in a city that has been pioneering open thinking for centuries.</p>
+            <div class="city-card-body">
+              <div class="city-card-country">Netherlands</div>
+              <div class="city-card-name">Amsterdam</div>
+              <div class="city-card-tagline">Train at the heart of European innovation.</div>
             </div>
           </a>
 
-          <a href="/locations/barcelona" class="destination-card reveal reveal-delay-1" aria-label="Explore Barcelona">
-            <div class="destination-card-img">
-              <!-- Location placeholder: location-barcelona-hero.jpg -->
-              <img src="/assets/images/location-barcelona-hero.jpg" alt="Location Barcelona Hero" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+          <a href="/locations/rotterdam" class="city-card reveal reveal-delay-1" aria-label="Explore Rotterdam">
+            <div class="city-card-img">
+              <img src="/assets/images/location-rotterdam-hero.jpg" alt="Rotterdam" loading="lazy">
             </div>
-            <div class="destination-card-overlay">
-              <h3>Barcelona</h3>
-              <span>Spain</span>
-              <p style="font-size:0.8rem;margin-top:0.5rem;opacity:0.85;">A city of architecture, creativity and Mediterranean energy. The perfect setting for courses on arts, innovation, sustainability and language.</p>
-            </div>
-          </a>
-
-          <a href="/locations/istanbul" class="destination-card reveal reveal-delay-2" aria-label="Explore Istanbul">
-            <div class="destination-card-img">
-              <!-- Location placeholder: location-istanbul-hero.jpg -->
-              <img src="/assets/images/location-istanbul-hero.jpg" alt="Location Istanbul Hero" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
-            </div>
-            <div class="destination-card-overlay">
-              <h3>Istanbul</h3>
-              <span>Turkey</span>
-              <p style="font-size:0.8rem;margin-top:0.5rem;opacity:0.85;">Where Europe meets Asia. Istanbul offers an extraordinary cultural depth that makes every course here a genuinely transformative experience.</p>
+            <div class="city-card-body">
+              <div class="city-card-country">Netherlands</div>
+              <div class="city-card-name">Rotterdam</div>
+              <div class="city-card-tagline">Architecture, ambition and a city always looking forward.</div>
             </div>
           </a>
 
-        </div>
+          <a href="/locations/bruges" class="city-card reveal reveal-delay-2" aria-label="Explore Bruges">
+            <div class="city-card-img">
+              <img src="/assets/images/location-bruges-hero.jpg" alt="Bruges" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Belgium</div>
+              <div class="city-card-name">Bruges</div>
+              <div class="city-card-tagline">A medieval masterpiece at the heart of Western Europe.</div>
+            </div>
+          </a>
 
-        <div class="text-center" style="margin-top:2.5rem;">
-          <a href="/locations" class="btn btn-outline-navy btn-lg">See All 13 Destinations</a>
+          <a href="/locations/hamburg" class="city-card reveal reveal-delay-3" aria-label="Explore Hamburg">
+            <div class="city-card-img">
+              <img src="/assets/images/location-hamburg-hero.jpg" alt="Hamburg" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Germany</div>
+              <div class="city-card-name">Hamburg</div>
+              <div class="city-card-tagline">A global port city with a bold and creative spirit.</div>
+            </div>
+          </a>
+
+          <a href="/locations/berlin" class="city-card reveal" aria-label="Explore Berlin">
+            <div class="city-card-img">
+              <img src="/assets/images/location-berlin-hero.jpg" alt="Berlin" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Germany</div>
+              <div class="city-card-name">Berlin</div>
+              <div class="city-card-tagline">History, reinvention and one of Europe's most dynamic cultural scenes.</div>
+            </div>
+          </a>
+
+          <a href="/locations/vienna" class="city-card reveal reveal-delay-1" aria-label="Explore Vienna">
+            <div class="city-card-img">
+              <img src="/assets/images/location-vienna-hero.jpg" alt="Vienna" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Austria</div>
+              <div class="city-card-name">Vienna</div>
+              <div class="city-card-tagline">Imperial elegance meets contemporary European thinking.</div>
+            </div>
+          </a>
+
+          <a href="/locations/barcelona" class="city-card reveal reveal-delay-2" aria-label="Explore Barcelona">
+            <div class="city-card-img">
+              <img src="/assets/images/location-barcelona-hero.jpg" alt="Barcelona" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Spain</div>
+              <div class="city-card-name">Barcelona</div>
+              <div class="city-card-tagline">Where creativity and education meet the Mediterranean.</div>
+            </div>
+          </a>
+
+          <a href="/locations/porto" class="city-card reveal reveal-delay-3" aria-label="Explore Porto">
+            <div class="city-card-img">
+              <img src="/assets/images/location-porto-hero.jpg" alt="Porto" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Portugal</div>
+              <div class="city-card-name">Porto</div>
+              <div class="city-card-tagline">One of Europe's most celebrated and characterful cities.</div>
+            </div>
+          </a>
+
+          <a href="/locations/athens" class="city-card reveal" aria-label="Explore Athens">
+            <div class="city-card-img">
+              <img src="/assets/images/location-athens-hero.jpg" alt="Athens" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Greece</div>
+              <div class="city-card-name">Athens</div>
+              <div class="city-card-tagline">The cradle of Western civilisation and a city reborn.</div>
+            </div>
+          </a>
+
+          <a href="/locations/thessaloniki" class="city-card reveal reveal-delay-1" aria-label="Explore Thessaloniki">
+            <div class="city-card-img">
+              <img src="/assets/images/location-thessaloniki-hero.jpg" alt="Thessaloniki" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Greece</div>
+              <div class="city-card-name">Thessaloniki</div>
+              <div class="city-card-tagline">A vibrant northern Greek city rich in history and culture.</div>
+            </div>
+          </a>
+
+          <a href="/locations/naples" class="city-card reveal reveal-delay-2" aria-label="Explore Naples">
+            <div class="city-card-img">
+              <img src="/assets/images/location-naples-hero.jpg" alt="Naples" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Italy</div>
+              <div class="city-card-name">Naples</div>
+              <div class="city-card-tagline">Passionate, historic and one of Europe's most authentic cities.</div>
+            </div>
+          </a>
+
+          <a href="/locations/cappadocia" class="city-card reveal reveal-delay-3" aria-label="Explore Cappadocia">
+            <div class="city-card-img">
+              <img src="/assets/images/location-cappadocia-hero.jpg" alt="Cappadocia" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Turkey</div>
+              <div class="city-card-name">Cappadocia</div>
+              <div class="city-card-tagline">One of the world's most extraordinary landscapes.</div>
+            </div>
+          </a>
+
+          <a href="/locations/istanbul" class="city-card reveal" aria-label="Explore Istanbul">
+            <div class="city-card-img">
+              <img src="/assets/images/location-istanbul-hero.jpg" alt="Istanbul" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Turkey</div>
+              <div class="city-card-name">Istanbul</div>
+              <div class="city-card-tagline">Where two continents meet in one extraordinary city.</div>
+            </div>
+          </a>
+
+          <a href="/locations/antalya" class="city-card reveal reveal-delay-1" aria-label="Explore Antalya">
+            <div class="city-card-img">
+              <img src="/assets/images/location-antalya-hero.jpg" alt="Antalya" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Turkey</div>
+              <div class="city-card-name">Antalya</div>
+              <div class="city-card-tagline">Where the Mediterranean meets ancient history and natural wonder.</div>
+            </div>
+          </a>
+
+          <a href="/locations/skien" class="city-card reveal reveal-delay-2" aria-label="Explore Skien">
+            <div class="city-card-img">
+              <img src="/assets/images/location-skien-hero.jpg" alt="Skien" loading="lazy">
+            </div>
+            <div class="city-card-body">
+              <div class="city-card-country">Norway</div>
+              <div class="city-card-name">Skien</div>
+              <div class="city-card-tagline">Scandinavian education tradition in a setting of extraordinary natural beauty.</div>
+            </div>
+          </a>
+
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         SECTION 11: CALL TO ACTION BANNER
+         SECTION 4: WHY OUR LOCATIONS MATTER
          ============================================================ -->
-    <section class="cta-banner" aria-labelledby="cta-heading">
+    <section class="section bg-off-white" aria-labelledby="why-heading">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2 id="why-heading">More Than a Backdrop</h2>
+          <p>Every destination in our network has been chosen because it actively enhances the learning experience.</p>
+        </div>
+        <div class="why-grid">
+
+          <div class="why-card reveal">
+            <div class="why-card-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h3>Carefully Chosen</h3>
+            <p>Every city in our network has been selected because it adds genuine value to the professional development experience. Rich history, cultural diversity, natural beauty, architectural significance and educational tradition are among the qualities we look for in every destination.</p>
+          </div>
+
+          <div class="why-card reveal reveal-delay-1">
+            <div class="why-card-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3>Fully Supported</h3>
+            <p>In every location we work with experienced local coordinators, trusted training facilities and knowledgeable cultural guides. Our participants never feel alone in an unfamiliar city. From arrival to departure, our local teams are on hand to make every experience smooth and memorable.</p>
+          </div>
+
+          <div class="why-card reveal reveal-delay-2">
+            <div class="why-card-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+            </div>
+            <h3>Erasmus+ Budget Friendly</h3>
+            <p>All 15 destinations are accessible by direct flights from most European countries and offer accommodation options at a range of price points. We provide detailed budget guidance for every location so that coordinators can plan their Erasmus+ grant allocation with confidence.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5: NOT SURE WHICH CITY - CTA
+         ============================================================ -->
+    <section class="cta-banner" aria-labelledby="help-heading">
       <div class="container cta-banner-content">
-        <h2 id="cta-heading" class="reveal">Ready to Transform Your School with Erasmus+?</h2>
-        <p class="reveal reveal-delay-1">Browse 32 courses, choose from 13 destinations and give your teachers the professional development they deserve.</p>
+        <h2 id="help-heading" class="reveal">Let Us Help You Decide</h2>
+        <p class="reveal reveal-delay-1">Choosing the right destination for your Erasmus+ mobility depends on many factors: your course topic, your grant budget, your travel connections and of course the personal preferences of your participants. Our team is happy to advise on which destination works best for your specific situation.</p>
         <div class="cta-banner-actions reveal reveal-delay-2">
-          <a href="/courses" class="btn btn-primary btn-lg">Explore Courses</a>
+          <a href="/courses" class="btn btn-primary btn-lg">Browse Courses</a>
           <a href="/contact" class="btn btn-secondary btn-lg">Get in Touch</a>
         </div>
       </div>
@@ -741,7 +497,7 @@
 
         <div class="footer-col">
           <div class="footer-logo">
-            <img src="/assets/images/logo-compact-light.svg" alt="sudeNEXUS Learning" width="130" height="32">
+            <img src="/assets/images/logo-nav-light.jpg" alt="sudeNEXUS Learning" width="160" style="height:auto;max-height:48px;object-fit:contain;">
           </div>
           <p>Sude Nexus is a Netherlands-based Erasmus+ training organisation offering professional development courses for teachers and school staff across Europe and the Mediterranean.</p>
           <a href="/eu-framework" class="footer-eu-link">
@@ -788,10 +544,10 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0;margin-top:2px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               <a href="mailto:info@sudenexus.com" style="color:rgba(255,255,255,0.6);transition:color 150ms ease;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">info@sudenexus.com</a>
             </p>
-            <p>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              Monday to Friday, 9am to 6pm CET
-            </p>
+            <a href="https://wa.me/31627387572?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20your%20courses." class="footer-whatsapp" aria-label="Chat on WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              WhatsApp: +31 6 27387572
+            </a>
           </div>
         </div>
 
