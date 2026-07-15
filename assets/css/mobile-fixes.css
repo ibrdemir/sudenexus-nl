@@ -1,0 +1,264 @@
+/* ================================================================
+   sudeNEXUS — mobile-fixes.css
+   Load AFTER main.css: <link rel="stylesheet" href="/assets/css/mobile-fixes.css">
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   1. HERO — two-column layout stacks on mobile
+   ---------------------------------------------------------------- */
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 4rem;
+  align-items: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (max-width: 960px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .hero-inner {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  .hero-actions {
+    flex-direction: column;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* ----------------------------------------------------------------
+   2. HERO STATS PANEL — vertical on desktop, horizontal on mobile
+   ---------------------------------------------------------------- */
+.hero-stats {
+  background: var(--color-navy);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.25rem 0;
+}
+
+.hero-stat-num {
+  font-family: var(--font-heading);
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.hero-stat-num span { color: var(--color-orange); }
+
+.hero-stat-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.4rem;
+}
+
+.hero-stat-divider {
+  width: 40px;
+  height: 1px;
+  background: rgba(255,255,255,0.12);
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .hero-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .hero-stat {
+    flex: 1 1 120px;
+    padding: 1rem 0.5rem;
+  }
+  .hero-stat-divider { display: none; }
+}
+
+@media (max-width: 400px) {
+  .hero-stat { flex: 0 0 50%; }
+}
+
+/* ----------------------------------------------------------------
+   3. BRAND MOMENT — homepage navy full-width section
+   ---------------------------------------------------------------- */
+.brand-moment {
+  background: var(--color-navy);
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+
+.brand-moment img {
+  height: 56px;
+  width: auto;
+  margin: 0 auto 1.75rem;
+  filter: brightness(0) invert(1);
+}
+
+.brand-moment-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+
+.brand-moment-sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.55);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ----------------------------------------------------------------
+   4. CTA BANNER — buttons stack on mobile
+   ---------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .cta-banner-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .cta-banner-actions .btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+}
+
+/* ----------------------------------------------------------------
+   5. CATEGORY CARDS — 4 cols → 2 cols → 1 col
+      (main.css grid-4 handles this but category-card needs
+       a min-height guard on mobile)
+   ---------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .category-card-header {
+    padding: 1.25rem;
+  }
+  .category-card-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* ----------------------------------------------------------------
+   6. COURSE CARDS — ensure single column on small screens
+   ---------------------------------------------------------------- */
+@media (max-width: 560px) {
+  .course-card {
+    /* already handled by grid-3 → 1 col at 640px in main.css */
+    width: 100%;
+  }
+}
+
+/* ----------------------------------------------------------------
+   7. TWO-COLUMN INLINE GRIDS (used via inline style in about/index)
+      These are display:grid set via inline style so we override
+      with a targeted mobile rule
+   ---------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Who we are section grid */
+  [style*="grid-template-columns:180px 1fr"],
+  [style*="grid-template-columns: 180px 1fr"] {
+    display: block !important;
+  }
+
+  /* Any inline two-col grid */
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* Stats bar four columns */
+  [style*="grid-template-columns:repeat(4,1fr)"],
+  [style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  [style*="grid-template-columns:repeat(4,1fr)"],
+  [style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* ----------------------------------------------------------------
+   8. FOOTER BOTTOM — stacks on mobile
+   ---------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .footer-bottom-right {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+}
+
+/* ----------------------------------------------------------------
+   9. TRUST BAR — already handled in main.css but reinforce
+   ---------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .trust-bar-inner {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  .trust-divider { display: none; }
+}
+
+/* ----------------------------------------------------------------
+   10. PAGE HERO — padding on mobile
+   ---------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .page-hero {
+    padding: 2.5rem 0 2rem;
+  }
+}
+
+/* ----------------------------------------------------------------
+   11. GENERAL — prevent any element causing horizontal overflow
+   ---------------------------------------------------------------- */
+body { overflow-x: hidden; }
+
+img, video, iframe {
+  max-width: 100%;
+}
+
+/* ----------------------------------------------------------------
+   12. BUTTONS — min touch target on mobile
+   ---------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .btn {
+    min-height: 48px;
+  }
+}
