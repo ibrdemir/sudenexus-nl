@@ -7,6 +7,7 @@
   <meta name="description" content="sudeNEXUS is a Netherlands-based professional development provider with over 11 years of experience in international mobility and training across Europe.">
   <link rel="canonical" href="https://sudenexus.nl/about">
   <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/mobile-fixes.css">
   <link rel="icon" type="image/svg+xml" href="/assets/images/1sudex-logo.svg">
 </head>
 <body class="page-body">
@@ -335,22 +336,7 @@
     </div>
   </footer>
 
-  <script>
-    const toggle = document.querySelector('.nav-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (toggle && mobileMenu) {
-      toggle.addEventListener('click', () => {
-        const open = toggle.getAttribute('aria-expanded') === 'true';
-        toggle.setAttribute('aria-expanded', String(!open));
-        mobileMenu.classList.toggle('is-open', !open);
-      });
-    }
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+  <script src="/assets/js/site.js"></script>
 
 </body>
 </html>

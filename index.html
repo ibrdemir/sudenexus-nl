@@ -12,6 +12,7 @@
   <meta property="og:url" content="https://sudenexus.nl/">
   <link rel="canonical" href="https://sudenexus.nl/">
   <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/mobile-fixes.css">
   <link rel="icon" type="image/svg+xml" href="/assets/images/1sudex-logo.svg">
   <style>
     /* ── HERO ── */
@@ -632,24 +633,7 @@
     </div>
   </footer>
 
-  <script>
-    // Mobile nav toggle
-    const toggle = document.querySelector('.nav-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (toggle && mobileMenu) {
-      toggle.addEventListener('click', () => {
-        const open = toggle.getAttribute('aria-expanded') === 'true';
-        toggle.setAttribute('aria-expanded', String(!open));
-        mobileMenu.classList.toggle('is-open', !open);
-      });
-    }
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+  <script src="/assets/js/site.js"></script>
 
 </body>
 </html>
