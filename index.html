@@ -229,41 +229,49 @@
          SECTION 1: HERO
          ============================================================ -->
     <section class="hero" aria-label="Hero">
-      <div class="container hero-inner">
+      <div class="hero-bg" aria-hidden="true"></div>
 
-        <div class="hero-content">
-          <p class="hero-eyebrow">Professional Development · International Mobility · 15 Destinations</p>
-          <h1>Connect.<br>Learn.<br>Transform.</h1>
-          <p class="hero-sub">We partner with schools, training organisations and NGOs to deliver professional development and international mobility programmes across 15 destinations in Europe and the Mediterranean.</p>
-          <div class="hero-actions">
-            <a href="/courses" class="btn btn-primary btn-lg">Explore Our Courses</a>
-            <a href="/locations" class="btn btn-outline-navy btn-lg">Discover Destinations</a>
-          </div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          Professional Development · International Mobility · 15 Destinations
         </div>
 
-        <!-- Stats panel -->
+        <h1>Connect.<br>Learn.<br><span class="accent">Transform.</span></h1>
+
+        <p class="hero-sub">We partner with schools, training organisations and NGOs to deliver professional development and international mobility programmes across 15 destinations in Europe and the Mediterranean.</p>
+
+        <div class="hero-actions">
+          <a href="/courses" class="btn btn-primary btn-lg">Explore Our Courses</a>
+          <a href="/locations" class="btn btn-secondary btn-lg">Discover Destinations</a>
+        </div>
+
+        <!-- Stats panel — inline below CTA on mobile, floats right on desktop -->
         <aside class="hero-stats" aria-label="sudeNEXUS at a glance">
           <div class="hero-stat">
-            <div class="hero-stat-num">32<span>+</span></div>
+            <div class="hero-stat-num">32<span class="hero-stat-plus">+</span></div>
             <div class="hero-stat-label">Courses</div>
           </div>
-          <div class="hero-stat-divider"></div>
+          <div class="hero-stat-divider" aria-hidden="true"></div>
           <div class="hero-stat">
             <div class="hero-stat-num">15</div>
             <div class="hero-stat-label">Destinations</div>
           </div>
-          <div class="hero-stat-divider"></div>
+          <div class="hero-stat-divider" aria-hidden="true"></div>
           <div class="hero-stat">
-            <div class="hero-stat-num">26<span>+</span></div>
+            <div class="hero-stat-num">26<span class="hero-stat-plus">+</span></div>
             <div class="hero-stat-label">Countries</div>
           </div>
-          <div class="hero-stat-divider"></div>
+          <div class="hero-stat-divider" aria-hidden="true"></div>
           <div class="hero-stat">
-            <div class="hero-stat-num">11<span>+</span></div>
+            <div class="hero-stat-num">11<span class="hero-stat-plus">+</span></div>
             <div class="hero-stat-label">Years</div>
           </div>
         </aside>
+      </div>
 
+      <!-- Hero image right side -->
+      <div class="hero-image-area" aria-hidden="true">
+        <img src="/assets/images/homepage-hero-01.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
       </div>
     </section>
 
